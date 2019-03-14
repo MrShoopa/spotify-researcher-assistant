@@ -19,6 +19,7 @@ AxiosRetry(Axios, { retries: 5 });  //  Retry when API calls fail
 
 class SpotifyDataHandler extends React.Component {
 
+    //  Universally handles errors
     errorInterceptor = () => Axios.interceptors.response.use(
         response => response,
         error => {
@@ -31,6 +32,7 @@ class SpotifyDataHandler extends React.Component {
         }
     );
 
+    //  Authenticate app access to Spotify Web API.
     authenticate = () => {
         console.log('Hello, you interacted with the form input! :)')
     }
@@ -43,6 +45,7 @@ class SpotifyDataHandler extends React.Component {
         this.props.onRef(undefined)
     }
 
+    //  This is a purely functional component, hence no need to return any HTML.
     render() {
         return (<p></p>)
     }
