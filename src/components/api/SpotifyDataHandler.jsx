@@ -13,7 +13,7 @@ import Axios from 'axios'
 import AxiosRetry from 'axios-retry'
 
 //  Resources
-import auth from '../resources/auth.json'   //  Must include valid IDs before methods are called
+import auth from '../../resources/auth.json'   //  Must include valid IDs before methods are called
 
 AxiosRetry(Axios, { retries: 5 });  //  Retry when API calls fail
 
@@ -32,7 +32,7 @@ class SpotifyDataHandler extends React.Component {
     );
 
     authenticate = () => {
-
+        console.log('Hello, you interacted with the form input! :)')
     }
 
 
@@ -40,10 +40,12 @@ class SpotifyDataHandler extends React.Component {
         this.props.onRef(this)
     }
     componentWillUnmount = () => {
-        //this.props.onRef(undefined)
+        this.props.onRef(undefined)
     }
 
     render() {
-        return <p></p>
-    };
+        return (<p></p>)
+    }
 }
+
+export default SpotifyDataHandler
