@@ -1,0 +1,9 @@
+{
+    "eslint.enable": true,
+
+    /*  Theme  */
+    "workbench.colorCustomizations": {
+        "titleBar.activeBackground": "#000000",
+        "titleBar.border": "#00af75"
+    }
+}
