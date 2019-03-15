@@ -15,6 +15,8 @@ import AxiosRetry from 'axios-retry'
 
 //  Resources
 import auth from '../../resources/auth.json'   //  Must include valid IDs before methods are called
+import TrackList from '../../data/track_list.json'
+import Track from '../../data/track_info.json'
 
 
 const Spotify = new SpotifyWebAPI()
@@ -61,8 +63,25 @@ class SpotifyDataHandler extends React.Component {
     authenticate = () => {
 
         console.log('Hello, you interacted with the form input! :)')
+
     }
 
+    fetchTrackData = (
+        user_id,
+        playlist_id = "37i9dQZF1DX7gIoKXt0gmx?si=fxGg36qARU2MGH-hA0WF0w") => {
+
+
+    }
+
+    generateTrackIDList = () => {
+        var ids_string = ""
+
+        for (var i = 0; i < TrackList.items.length(); i++) {
+            ids_string += `${TrackList.items[i].track.id},`
+        }
+
+        return ids_string
+    }
 
     componentDidMount = () => {
         this.props.onRef(this)
