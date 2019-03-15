@@ -1,27 +1,83 @@
+/*  Type-Specific Styling */
+input {
+  border: 0;
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  color: white;
+  background-color: darkslategray;
+
+  transition: .25s;
+}
+
+input[type=submit]:hover {
+  color: white;
+  background-color: green;
+
+  transition: .25s;
+}
+
+.background-particles {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  z-index: -1337;
+
+  color: grey;
+  background-color: slategray;
+}
+
+/*  Component-Wide Styling */
 .App {
   text-align: center;
+  color: white;
 }
 
 .App-logo {
   height: 40vmin;
   max-width: 200px;
-  pointer-events: none;
+}
+
+.App-body {
+  display: grid;
+  margin: auto;
+  align-items: center;
+  max-width: 400px;
+
+  width: 85vw;
+}
+
+.body-text {
+  display: grid;
+  max-width: 400px;
+
+  width: 85vw;
 }
 
 .App-header {
-  background-color: #252525;
-  height: 7.5vh;
   display: flex;
+  min-height: 10vh;
+
+  height: 7.5vh;
+
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   font-size: calc(10px + 2vmin);
+
+  background-color: #252525;
   color: rgb(209, 209, 209);
 }
 
 .user-form {
   display: grid;
-  margin: auto;
   max-width: 400px;
+
   width: 85vw;
 }

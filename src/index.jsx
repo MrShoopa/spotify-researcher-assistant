@@ -9,6 +9,7 @@ Dependencies needed:
     npm install:
     -axios
     -axios-retry
+    -particlesjs
 TODO:
 
 */
