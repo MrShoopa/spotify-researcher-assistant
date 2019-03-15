@@ -16,12 +16,14 @@ class App extends React.Component {
   }
 
   formAuthenticate = (event) => {
+
     this.SpotifyDataHandler.authenticate()
     event.preventDefault()
   }
 
   render = () => {
 
+    // Load background
     window.onload = function () {
       Particles.init({
         selector: '.background-particles'
@@ -51,7 +53,7 @@ class App extends React.Component {
             <input type="submit" value="Get the Facts" />
           </form>
 
-          <canvas class="background-particles"></canvas>
+          <canvas className="background-particles"></canvas>
           <script src={Particles}></script>
         </div>
         <SpotifyDataHandler onRef={ref => (this.SpotifyDataHandler = ref)} />
