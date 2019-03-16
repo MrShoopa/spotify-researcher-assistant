@@ -8,7 +8,7 @@ import Particles from 'particlesjs'
 
 //  External Components
 import SpotifyDataHandler from './components/api/SpotifyDataHandler'
-import TrackGraph from './components/ui/TrackGraph'
+import TrackAnalysis from './components/ui/TrackAnalysis'
 
 class App extends React.Component {
   constructor (props) {
@@ -39,8 +39,8 @@ class App extends React.Component {
   generatePlaylistAnalytics = () => {
     let track_data = this.SpotifyDataHandler.fetchTrackData()
 
-    ReactDOM.render(<TrackGraph track_data={track_data}>
-    </TrackGraph>)
+    ReactDOM.render(<TrackAnalysis track_data={track_data}>
+    </TrackAnalysis>)
   }
 
   render = () => {
