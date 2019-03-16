@@ -17,6 +17,8 @@ import AxiosRetry from 'axios-retry'
 import auth from '../../resources/auth.json'   //  Must include valid IDs before methods are called
 import track_list from '../../data/track_list.json'
 import track_data from '../../data/track_info.json'
+import track_list_sample from '../../data/track_list_sample.json'
+import track_data_sample from '../../data/track_info_sample.json'
 
 
 const Spotify = new SpotifyWebAPI()
@@ -74,7 +76,11 @@ class SpotifyDataHandler extends React.Component {
     /*   Data fetch functions   */
     //  Returns Track object using specified playlist ID(s), defaults to sample ID
     fetchPlaylistData = (
-        playlist_id = auth.sample.playlist.id) => {
+        playlist_id = this.state.playlist_id) => {
+        //  When sample playlist is requested
+        playlist_id = 'sample' ? auth.spotify.sample.playlist_id : playlist_id
+
+        if (playlist_id === null) return console.error('User did not specify Playlist ID.')
 
         Spotify.getPlaylist(playlist_id)
             .then(data => {
@@ -88,6 +94,8 @@ class SpotifyDataHandler extends React.Component {
     //  Returns Track object using specified Track ID(s), defaults to inputted playlist ID
     fetchTrackData = (
         track_ids = this.generateTrackIDListString()) => {
+        //  When sample track data is requested
+        if (track_ids === 'sample') return track_data_sample
 
         Spotify.getAudioFeaturesForTracks(track_ids)
             .then(data => {
@@ -126,6 +134,7 @@ class SpotifyDataHandler extends React.Component {
         return track_list.items[Math.floor(Math.random() * track_amount)].track.id
     }
 
+    /*  Lifecycle functions  */
     componentDidMount = () => {
         this.props.onRef(this)
     }
