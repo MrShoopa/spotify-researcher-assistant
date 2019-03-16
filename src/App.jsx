@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 
 //  Internal Components
 import logo from './logo.svg'
@@ -7,6 +8,7 @@ import Particles from 'particlesjs'
 
 //  External Components
 import SpotifyDataHandler from './components/api/SpotifyDataHandler'
+import TrackGraph from './components/ui/TrackGraph'
 
 class App extends React.Component {
   constructor (props) {
@@ -15,10 +17,30 @@ class App extends React.Component {
     this.formAuthenticate = this.formAuthenticate.bind(this)
   }
 
-  formAuthenticate = (event) => {
-
-    this.SpotifyDataHandler.authenticate()
+  formAuthenticate = async (event) => {
     event.preventDefault()
+    const data = new FormData(event.target)
+
+    try {
+      await this.SpotifyDataHandler.authenticate()
+      document.getElementById('hint-headline').innerHTML
+        = "Reading playlist..."
+    } catch {
+      document.getElementById('hint-headline').innerHTML
+        = "There seems to be an issue connecting with Spotify. Try again later."
+      return;
+    }
+
+    await this.SpotifyDataHandler.setState({ user: data.user_id, playlist: data.playlist_id })
+
+    this.generatePlaylistAnalytics()
+  }
+
+  generatePlaylistAnalytics = () => {
+    let track_data = this.SpotifyDataHandler.fetchTrackData()
+
+    ReactDOM.render(<TrackGraph track_data={track_data}>
+    </TrackGraph>)
   }
 
   render = () => {
@@ -36,19 +58,19 @@ class App extends React.Component {
           <img src={logo} className="App-logo" alt="logo" />
         </header>
         <div className='App-body'>
-          <div className="body-text">
-            <p className="hello-headline">
+          <div className="body-text" style={{ animation: 'text-slide-up-empty-full 1s' }}>
+            <p className="hello-headline" id="hello-headline">
               <b>Hi! I'm your Spotify Researcher.</b>
             </p>
-            <p className="hint-headline">
+            <p className="hint-headline" id="hint-headline" style={{ animationDelay: '2s' }}>
               Input a playlist and user ID to learn a little more about your music.
             </p>
           </div>
 
           <form className='user-form' onSubmit={this.formAuthenticate}>
-            <input type="text" name="user-id" placeholder="User ID" required />
+            <input type="text" name="user_id" placeholder="User ID" required />
             <br></br>
-            <input type="text" name="playlist-id" placeholder="Playlist ID" required />
+            <input type="text" name="playlist_id" placeholder="Playlist ID" required />
             <br></br>
             <input type="submit" value="Get the Facts" />
           </form>
@@ -57,7 +79,7 @@ class App extends React.Component {
           <script src={Particles}></script>
         </div>
         <SpotifyDataHandler onRef={ref => (this.SpotifyDataHandler = ref)} />
-      </div>
+      </div >
     );
   }
 }
