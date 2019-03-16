@@ -1,33 +1,54 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+//  Internal Components
+import Particles from 'particlesjs'
+
 import './TrackAnalysis.scss'
+import TrackTable from './TrackTable';
 
-export default class StoryScreen extends React.Component {
+export default class TrackAnalysis extends React.Component {
+    constructor (props) {
+        super(props)
+        this.state = {
+            track_data: this.props.track_data
+        }
 
+        this.sortBy = this.sortBy.bind(this)
+    }
     generateTable = () => {
 
     }
 
+    sortBy = (type) => {
+        this.setState({
+            track_data: this.props.track_data.sort((low, high) => (low < high))
+        })
+    }
+
     render = () => {
 
+        // Load background
+        window.onload = function () {
+            Particles.init({
+                selector: '.background-particles-alt'
+            });
+        };
+
         return (
-            <div >
+            <div className='App'>
                 <header className="App-header" >
                     <p>
                         Let's learn about your music!
                     </p>
                 </header>
-                <div className="Track-table">
-                    <div className="children">
-                        {this.generateTable()}
-                    </div>
+                <div className='App-body'>
+                    <TrackTable track_list={this.state.track_data}></TrackTable>
+                    <canvas className="background-particles-alt"></canvas>
+                    <script src={Particles}></script>
                 </div>
-                <footer className="App-footer" >
-                    <p>
-                    </p>
-                </footer>
+
             </div>
-        )
+        );
     }
 }
