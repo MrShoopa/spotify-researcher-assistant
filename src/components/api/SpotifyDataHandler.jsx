@@ -15,26 +15,31 @@ import AxiosRetry from 'axios-retry'
 
 //  Resources
 import auth from '../../resources/auth.json'   //  Must include valid IDs before methods are called
-import TrackList from '../../data/track_list.json'
-import Track from '../../data/track_info.json'
+import track_list from '../../data/track_list.json'
+import track_data from '../../data/track_info.json'
 
 
 const Spotify = new SpotifyWebAPI()
-const authProps = {
+
+const authConfig = {
     method: 'post',
-    url: auth.universal.proxy_url + auth.spotify.access.url,
-    data: {
+    url: auth.spotify.access.url,
+    params: {
         grant_type: 'client_credentials'
     },
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization':
-            'Basic ' + (new Buffer(`${auth.spotify.client.id}:${auth.spotify.client.secret}`).toString('base64')),
+        'Accept': 'application/json',
+
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'origin, x-requested-with, Content-Type, Accept'
     },
-    responseType: 'json'
+    auth: {
+        username: auth.spotify.client.id,
+        password: auth.spotify.client.secret
+    }
 }
+
 AxiosRetry(Axios, { retries: 5 });  //  Retry when API calls fail
 
 
@@ -44,7 +49,7 @@ class SpotifyDataHandler extends React.Component {
 
         let TOKEN
 
-        Axios.request(authProps)
+        Axios.request(authConfig)
             .then(res => {
                 console.log(res)
             })
@@ -60,27 +65,65 @@ class SpotifyDataHandler extends React.Component {
 
 
     //  Authenticate app access to Spotify Web API.
-    authenticate = () => {
+    authenticate = async () => {
 
         console.log('Hello, you interacted with the form input! :)')
 
     }
 
-    fetchTrackData = (
-        user_id,
-        playlist_id = "37i9dQZF1DX7gIoKXt0gmx?si=fxGg36qARU2MGH-hA0WF0w") => {
+    /*   Data fetch functions   */
+    //  Returns Track object using specified playlist ID(s), defaults to sample ID
+    fetchPlaylistData = (
+        playlist_id = auth.sample.playlist.id) => {
 
-
+        Spotify.getPlaylist(playlist_id)
+            .then(data => {
+                track_list = data
+                console.log(`Received a playlist: `, data)
+            }, err => {
+                console.log(`Error fetching playlist - `, err)
+            })
     }
 
-    generateTrackIDList = () => {
+    //  Returns Track object using specified Track ID(s), defaults to inputted playlist ID
+    fetchTrackData = (
+        track_ids = this.generateTrackIDListString()) => {
+
+        Spotify.getAudioFeaturesForTracks(track_ids)
+            .then(data => {
+                track_data = data
+                console.log(`Audio features for track(s): `, data)
+            }, err => {
+                console.log(`Error fetching track data - `, err)
+            })
+
+        return track_data
+    }
+
+    /*  Formatting/Generation functions */
+
+    //  Returns string of track IDs from currently populated playlist JSON
+    generateTrackIDListString = async () => {
+        if (!track_list) await this.fetchPlaylistData()
+
         var ids_string = ""
 
-        for (var i = 0; i < TrackList.items.length(); i++) {
-            ids_string += `${TrackList.items[i].track.id},`
+        for (var i = 0; i < track_list.items.length(); i++) {
+            ids_string += `${track_list.items[i].track.id},`
         }
 
         return ids_string
+    }
+
+    /*  Random data fetch functions   */
+
+    //  Returns random Track ID using an exisiting Playlist object
+    randomTrackID = async () => {
+        if (!track_list) await this.fetchPlaylistData()
+
+        let track_amount = track_list.items.length()
+
+        return track_list.items[Math.floor(Math.random() * track_amount)].track.id
     }
 
     componentDidMount = () => {
