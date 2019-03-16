@@ -37,7 +37,10 @@ class App extends React.Component {
   }
 
   generatePlaylistAnalytics = () => {
-    let track_data = this.SpotifyDataHandler.fetchTrackData()
+
+    //let track_data = this.SpotifyDataHandler.fetchTrackData()
+
+    let track_data = this.SpotifyDataHandler.fetchTrackData('sample') //  DEBUG
 
     ReactDOM.render(<TrackAnalysis track_data={track_data}>
     </TrackAnalysis>)
