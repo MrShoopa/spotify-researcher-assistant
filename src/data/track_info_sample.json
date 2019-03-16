@@ -1,5 +1,7 @@
 {
     "audio_features": [{
+            "title": "Hello",
+            "artist": "World",
             "danceability": 0.366,
             "energy": 0.963,
             "key": 11,
@@ -20,6 +22,8 @@
             "time_signature": 4
         },
         {
+            "title": "Konichiwa",
+            "artist": "Sekai",
             "danceability": 0.602,
             "energy": 0.905,
             "key": 2,
@@ -40,6 +44,8 @@
             "time_signature": 4
         },
         {
+            "title": "Hola",
+            "artist": "Mundo",
             "danceability": 0.585,
             "energy": 0.842,
             "key": 9,
