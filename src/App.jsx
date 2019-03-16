@@ -42,8 +42,8 @@ class App extends React.Component {
 
     let track_data = this.SpotifyDataHandler.fetchTrackData('sample') //  DEBUG
 
-    ReactDOM.render(<TrackAnalysis track_data={track_data}>
-    </TrackAnalysis>)
+    ReactDOM.render(<TrackAnalysis track_data={track_data} />,
+      document.getElementById('root'))
   }
 
   render = () => {
