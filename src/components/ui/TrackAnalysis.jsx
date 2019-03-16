@@ -25,6 +25,7 @@ export default class TrackAnalysis extends React.Component {
         this.setState({
             track_data:
                 this.props.track_data.sort((low, high) => {
+                    if (typeof low[type] === 'string') return ('' + low[type]).localeCompare(high[type]);
                     return low[type] - high[type]
                 })
         })
