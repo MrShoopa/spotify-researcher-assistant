@@ -1,8 +1,6 @@
 import React from 'react'
 import './TrackTable.scss'
 
-import TrackListGraph from './TrackListGraph'
-
 
 function TrackTable(props) {
 
@@ -22,7 +20,7 @@ function TrackTable(props) {
 
     // Table of tracks featuring five details as listed below.
     return (
-        <body>
+        <div>
             <table id='track-table'>
                 <thead>
                     <tr>
@@ -72,10 +70,7 @@ function TrackTable(props) {
                 </tbody>
             </table>
             <br></br>
-            <TrackListGraph>
-            </TrackListGraph>
-
-        </body>
+        </div>
     )
 }
 

@@ -1,21 +1,48 @@
 import React from 'react'
-import ChartJS from 'chart-js'
+import { Line } from 'react-chartjs-2'
 
-import './TrackListGraph.scss'
 
-function TrackGraph(props) {
+function TrackListGraph(props) {
+
+
+    let data = {
+
+    }
+
+    let options = {
+        title: {
+            display: true,
+            text: 'Energy vs. Valence'
+
+        },
+        scales: {
+            xAxes: [{
+                ticks: {
+                    beginAtZero: true
+                },
+                show: true
+            }],
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        },
+        showLines: true
+
+    }
 
     return (
-        <canvas style={graphStyle}></canvas>
+        <div style={chartStyle}>
+            <Line data={data} options={options}
+                width={100}
+                height={100} />
+        </div>
     )
-
 }
 
-const graphStyle = {
-    backgroundColor: 'white',
-
-    borderRadius: '5px',
-    width: '100%'
+const chartStyle = {
+    backgroundColor: 'white'
 }
 
-export default TrackGraph
+export default TrackListGraph

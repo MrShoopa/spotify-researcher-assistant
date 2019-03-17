@@ -1,11 +1,11 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 
 //  Internal Components
 import Particles from 'particlesjs'
 
 import './TrackAnalysis.scss'
 import TrackTable from './TrackTable';
+import TrackListGraph from './TrackListGraph';
 
 export default class TrackAnalysis extends React.Component {
     constructor (props) {
@@ -53,6 +53,7 @@ export default class TrackAnalysis extends React.Component {
                 </header>
                 <div className='App-body'>
                     <TrackTable track_list={this.state.track_data} sortBy={this.sortBy} />
+                    <TrackListGraph />
                     <canvas className="background-particles-alt"></canvas>
                     <script src={Particles}></script>
                 </div>
