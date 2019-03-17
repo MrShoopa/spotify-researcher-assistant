@@ -16,7 +16,10 @@ export default class TrackAnalysis extends React.Component {
 
         this.sortBy = this.sortBy.bind(this)
     }
-    generateTable = () => {
+
+    /*  Table Functions */
+    //TODO: If time allows
+    toggleColors = () => {
 
     }
 
