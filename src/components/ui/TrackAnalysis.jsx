@@ -25,6 +25,7 @@ export default class TrackAnalysis extends React.Component {
 
     sortBy = (type) => {
         console.log(type)
+
         this.setState({
             track_data:
                 this.props.track_data.sort((low, high) => {

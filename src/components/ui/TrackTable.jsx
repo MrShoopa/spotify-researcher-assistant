@@ -19,27 +19,27 @@ function TrackTable(props) {
         <table id='track-table'>
             <thead>
                 <th>
-                    <button type='sort' onClick={() => props.sortBy('artist')}>
+                    <button type='sort' name='artist' onClick={() => props.sortBy('artist')}>
                         Artist
                     </button>
                 </th>
                 <th>
-                    <button type='sort' onClick={() => props.sortBy('title')}>
+                    <button type='sort' name='title' onClick={() => props.sortBy('title')}>
                         Title
                     </button>
                 </th>
                 <th>
-                    <button type='sort' onClick={() => props.sortBy('energy')}>
+                    <button type='sort' name='energy' onClick={() => props.sortBy('energy')}>
                         Energy
                     </button>
                 </th>
                 <th>
-                    <button type='sort' onClick={() => props.sortBy('valence')}>
+                    <button type='sort' name='valence' onClick={() => props.sortBy('valence')}>
                         Valence
                     </button>
                 </th>
                 <th>
-                    <button type='sort' onClick={() => props.sortBy('duration_ms')}>
+                    <button type='sort' name='seconds' onClick={() => props.sortBy('duration_ms')}>
                         Seconds
                     </button>
                 </th>
