@@ -1,6 +1,18 @@
 import React from 'react'
 
 function TrackTable(props) {
+
+    function determineStrengthColor(nrg_val) {
+        if (nrg_val < .2) return 'energy-0'
+        else if (nrg_val < .4) return 'energy-1'
+        else if (nrg_val < .6) return 'energy-2'
+        else if (nrg_val < .8) return 'energy-3'
+        else if (nrg_val < .1) return 'energy-4'
+        else if (nrg_val < .1) return 'energy-max'
+        else return 'energy-unknown'
+
+    }
+
     return (
         <table>
             <thead>
@@ -34,7 +46,7 @@ function TrackTable(props) {
                 {
                     props.track_list.map(track =>
                         (
-                            <tr>
+                            <tr className={() => this.determineStrengthColor(track.energy)}>
                                 <td>{track.artist}</td>
                                 <td>{track.title}</td>
                                 <td>{track.energy}</td>
