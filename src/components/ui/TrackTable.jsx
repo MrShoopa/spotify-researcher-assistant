@@ -14,42 +14,49 @@ function TrackTable(props) {
         return 'hsl(' + hue + ', 100%, 30%)';
     }
 
+    function showGraph() {
+        console.log('Graph will come soon')
+    }
+
     // Table of tracks featuring five details as listed below.
     return (
         <table id='track-table'>
             <thead>
-                <th>
-                    <button type='sort' name='artist' onClick={() => props.sortBy('artist')}>
-                        Artist
-                    </button>
-                </th>
-                <th>
-                    <button type='sort' name='title' onClick={() => props.sortBy('title')}>
-                        Title
-                    </button>
-                </th>
-                <th>
-                    <button type='sort' name='energy' onClick={() => props.sortBy('energy')}>
-                        Energy
-                    </button>
-                </th>
-                <th>
-                    <button type='sort' name='valence' onClick={() => props.sortBy('valence')}>
-                        Valence
-                    </button>
-                </th>
-                <th>
-                    <button type='sort' name='seconds' onClick={() => props.sortBy('duration_ms')}>
-                        Seconds
-                    </button>
-                </th>
+                <tr>
+                    <th>
+                        <button type='sort' name='artist' onClick={() => props.sortBy('artist')}>
+                            Artist
+                        </button>
+                    </th>
+                    <th>
+                        <button type='sort' name='title' onClick={() => props.sortBy('title')}>
+                            Title
+                        </button>
+                    </th>
+                    <th>
+                        <button type='sort' name='energy' onClick={() => props.sortBy('energy')}>
+                            Energy
+                        </button>
+                    </th>
+                    <th>
+                        <button type='sort' name='valence' onClick={() => props.sortBy('valence')}>
+                            Valence
+                        </button>
+                    </th>
+                    <th>
+                        <button type='sort' name='seconds' onClick={() => props.sortBy('duration_ms')}>
+                            Seconds
+                        </button>
+                    </th>
+                </tr>
             </thead>
             <tbody>
                 {
                     props.track_list.map(track =>
                         (
-                            <tr className="track-table-item"
-                                style={{ backgroundColor: determineStrengthColor(track.energy) }}>
+                            <tr className="track-table-item" key={track.title}
+                                style={{ backgroundColor: determineStrengthColor(track.energy) }}
+                                onClick={() => showGraph()}>
                                 <td>{track.artist}</td>
                                 <td>{track.title}</td>
                                 <td>{track.energy}</td>
