@@ -13,10 +13,15 @@ function TrackScatterGraph(props) {
             labels: ["Track 1"],
             datasets: [{
                 label: 'Energy vs. Valence',
+                backgroundColor: 'none',
+
                 data: [{
                     x: .41,
                     y: 0
-                }]
+                }],
+
+                pointBackgroundColor: ["Red"],
+                pointBorderColor: ["Black"]
             }]
         }
 
@@ -28,23 +33,51 @@ function TrackScatterGraph(props) {
                     x: track.valence,
                     y: track.energy
                 }
+            formatted_data.datasets[0].pointBackgroundColor[index] =
+                determineStrengthColor(track.energy)
+            formatted_data.datasets[0].pointBorderColor[index] = 'black'
         })
 
         return formatted_data
     }
 
     let options = {
+        title: {
+            display: true,
+
+            text: 'Energy vs. Valence of Tracks',
+            fontColor: 'white',
+        },
+        legend: {
+            display: false
+        },
         scales: {
             xAxes: [{
+                scaleLabel: {
+                    display: true,
+
+                    labelString: 'Valence',
+                    fontColor: 'white'
+                },
                 ticks: {
                     beginAtZero: true,
-                    max: 1
+
+                    max: 1,
+                    fontColor: 'white'
                 }
             }],
             yAxes: [{
+                scaleLabel: {
+                    display: true,
+
+                    labelString: 'Energy',
+                    fontColor: 'white'
+                },
                 ticks: {
                     beginAtZero: true,
-                    max: 1
+
+                    max: 1,
+                    fontColor: 'white'
                 }
             }]
         },
@@ -55,10 +88,18 @@ function TrackScatterGraph(props) {
                     var label = data.labels[item.index];
                     return label + ': (' + item.xLabel + ', ' + item.yLabel + ')';
                 }
-
             }
         }
 
+    }
+
+    function determineStrengthColor(nrg_val) {
+        const green = 120
+
+        var hue = green * (1 - nrg_val)
+
+        // Return a CSS HSL string
+        return 'hsl(' + hue + ', 100%, 50%)';
     }
 
     return (
@@ -71,7 +112,10 @@ function TrackScatterGraph(props) {
 }
 
 const chartStyle = {
-    backgroundColor: 'white'
+    margin: '10px',
+    backgroundColor: 'slategrey',
+    color: 'white',
+    borderRadius: '5px'
 }
 
 export default TrackScatterGraph

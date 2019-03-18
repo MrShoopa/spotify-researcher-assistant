@@ -52,8 +52,8 @@ export default class TrackAnalysis extends React.Component {
                     </p>
                 </header>
                 <div className='App-body'>
-                    <TrackTable track_list={this.state.track_data} sortBy={this.sortBy} />
                     <TrackScatterGraph track_list={this.state.track_data} />
+                    <TrackTable track_list={this.state.track_data} sortBy={this.sortBy} />
                     <canvas className="background-particles-alt"></canvas>
                     <script src={Particles}></script>
                 </div>
