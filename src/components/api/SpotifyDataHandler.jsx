@@ -30,15 +30,13 @@ const authConfig = {
         grant_type: 'client_credentials'
     },
     headers: {
+        'Authorization': 'Basic ' +
+            (new Buffer(auth.spotify.client.id + ':' + auth.spotify.client.secret).toString('base64')),
         'Content-Type': 'application/x-www-form-urlencoded',
         'Accept': 'application/json',
 
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'origin, x-requested-with, Content-Type, Accept'
-    },
-    auth: {
-        username: auth.spotify.client.id,
-        password: auth.spotify.client.secret
     }
 }
 
@@ -51,15 +49,18 @@ class SpotifyDataHandler extends React.Component {
 
         let TOKEN
 
+        if (TOKEN) Spotify.setAccessToken(auth.spotify.access.token)
+
         Axios.request(authConfig)
             .then(res => {
                 console.log(res)
+
+                Spotify.setAccessToken(auth.spotify.access.token)
             })
             .catch(err => (
                 console.log(err)
             ))
 
-        if (TOKEN) Spotify.setAccessToken(auth.spotify.access.token)
 
 
     }
