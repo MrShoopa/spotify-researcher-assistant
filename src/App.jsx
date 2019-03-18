@@ -67,6 +67,9 @@ class App extends React.Component {
             </p>
             <p className="hint-headline" id="hint-headline" style={{ animationDelay: '2s' }}>
               Input a playlist and user ID to learn a little more about your music.
+              <br></br>
+              <br></br>
+              <i>Disclaimer: Unfortunately, fetching playlists is unavailable at the moment so a sample playlist will be used.</i>
             </p>
           </div>
 
