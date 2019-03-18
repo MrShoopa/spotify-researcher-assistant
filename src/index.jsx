@@ -8,8 +8,10 @@ import App from './App';
 
 //  Retrieve access token beforehand
 // ? Did not have enough time to implement authorization and access_token retreival,
-// ? Using pre-fetched data.
-//  import './Auth.jsx';
+// ? Using pre-fetched data: Spotify playlist data and user data.
+
+//  Server-side authentication
+//import './Auth.jsx';
 
 
 /* 
@@ -19,11 +21,11 @@ Dependencies needed:
     -axios-retry
     -particlesjs
     -chart.js
-
+    -react-chartjs-2
 */
+
+
 ReactDOM.render(<App />, document.getElementById('root'));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+// PWA
 serviceWorker.register();

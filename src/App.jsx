@@ -1,3 +1,13 @@
+/* 
+    The initial screen of the app;
+    Here the user can input a playlist/user ID combo and submit to
+    retrieve information about that playlist's tracks.
+    
+    @reference  (https://developer.spotify.com/documentation/web-api/)
+    @author     Joe Villegas (joev@uw.edu)
+    @date       3/14/19
+*/
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 
@@ -38,7 +48,7 @@ class App extends React.Component {
 
   generatePlaylistAnalytics = () => {
 
-    //let track_data = this.SpotifyDataHandler.fetchTrackData()
+    //let track_data = this.SpotifyDataHandler.fetchTrackData()       //  PRODUCTION
 
     let track_data = this.SpotifyDataHandler.fetchTrackData('sample') //  DEBUG
 
@@ -48,7 +58,7 @@ class App extends React.Component {
 
   render = () => {
 
-    // Load background
+    // Load background (ParticlesJS)
     window.onload = function () {
       Particles.init({
         selector: '.background-particles'
@@ -60,7 +70,9 @@ class App extends React.Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </header>
+
         <div className='App-body'>
+
           <div className="body-text" style={{ animation: 'text-slide-up-empty-full 1s' }}>
             <p className="hello-headline" id="hello-headline">
               <b>Hi! I'm your Spotify Researcher.</b>
@@ -84,7 +96,9 @@ class App extends React.Component {
           <canvas className="background-particles"></canvas>
           <script src={Particles}></script>
         </div>
+
         <SpotifyDataHandler onRef={ref => (this.SpotifyDataHandler = ref)} />
+
       </div >
     );
   }

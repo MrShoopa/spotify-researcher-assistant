@@ -1,24 +1,33 @@
+/*  
+    Generates an HTML table of a playlist's tracks' details which include:
+    Title, Artist, Energy, Valence, and length (sec.)
+
+    @author Joe (joev@uw.edu)
+    @date 3/16/2017
+*/
+
 import React from 'react'
 import './TrackTable.scss'
 
 
 function TrackTable(props) {
 
-    // Generates Red-Green color based on track's 'energy' value.
+    //  Returns an HSL color (green-red) according to strength of a song's Energy value
     function determineStrengthColor(nrg_val) {
         const green = 120
 
         var hue = green * (1 - nrg_val)
 
-        // Return a CSS HSL string
-        return 'hsl(' + hue + ', 100%, 30%)';
+        // Return an CSS HSL string
+        return 'hsl(' + hue + ', 100%, 50%)';
     }
 
+    //  Display more info on a single track
     function showMoreInfo() {
-        console.log('Graph will come soon')
+        console.log('You clicked on a song! A future feature will replace this message!')
     }
 
-    // Table of tracks featuring five details as listed below.
+    // Table of tracks displaying details of the ones in the table header.
     return (
         <div className='track-table'>
             <table id='track-table'>

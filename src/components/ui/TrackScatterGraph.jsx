@@ -1,3 +1,12 @@
+/*  
+    Generates an interactive scatter plot of a playlist's tracks
+    comparing their energy and valence values.
+
+    @author Joe (joev@uw.edu)
+    @date 3/16/2017
+    @reference (https://www.chartjs.org/docs/2.8.0/)
+*/
+
 import React from 'react'
 import { Scatter } from 'react-chartjs-2'
 
@@ -6,7 +15,7 @@ function TrackScatterGraph(props) {
 
 
     function parseData() {
-        console.log('Graphing following data:', props.track_list)
+        //console.log('Graphing following data:', props.track_list)
 
         // SAMPLE DATA TABLE
         let formatted_data = {
@@ -27,12 +36,14 @@ function TrackScatterGraph(props) {
 
         //  Parsing data
         props.track_list.forEach((track, index) => {
-            formatted_data.labels[index] = `${track.title} - ${track.artist}`
+            formatted_data.labels[index] = `${track.title} - ${track.artist}`   //  Datapoint name
             formatted_data.datasets[0].data[index] =
                 {
                     x: track.valence,
                     y: track.energy
                 }
+
+            //  Styling according to Energy value
             formatted_data.datasets[0].pointBackgroundColor[index] =
                 determineStrengthColor(track.energy)
             formatted_data.datasets[0].pointBorderColor[index] = 'black'
@@ -83,7 +94,7 @@ function TrackScatterGraph(props) {
         },
         tooltips: {
             callbacks: {
-                //  Manipulates label of each data point to respective title/artist of song
+                //  label: Manipulates label of each data point to respective title/artist of song
                 label: function (item, data) {
                     var label = data.labels[item.index];
                     return label + ': (' + item.xLabel + ', ' + item.yLabel + ')';
@@ -93,12 +104,13 @@ function TrackScatterGraph(props) {
 
     }
 
+    //  Returns an HSL color (green-red) according to strength of a song's Energy value
     function determineStrengthColor(nrg_val) {
         const green = 120
 
         var hue = green * (1 - nrg_val)
 
-        // Return a CSS HSL string
+        // Return an CSS HSL string
         return 'hsl(' + hue + ', 100%, 50%)';
     }
 

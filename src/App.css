@@ -1,3 +1,5 @@
+/*  App-Wide styles for components. Can be overridden by child CSS classes. */
+
 /*  Type-Specific Styling */
 input {
   border: 0;
@@ -32,7 +34,7 @@ input[type=submit]:hover {
   background-color: slategray;
 }
 
-/*  Component-Wide Styling */
+/*  Component-Specific Styling */
 .App {
   text-align: center;
   color: white;
@@ -41,22 +43,6 @@ input[type=submit]:hover {
 .App-logo {
   height: 40vmin;
   max-width: 200px;
-}
-
-.App-body {
-  display: grid;
-  margin: auto;
-  align-items: center;
-  max-width: 400px;
-
-  width: 85vw;
-}
-
-.body-text {
-  display: grid;
-  max-width: 400px;
-
-  width: 85vw;
 }
 
 .App-header {
@@ -73,6 +59,22 @@ input[type=submit]:hover {
 
   background-color: #252525;
   color: rgb(209, 209, 209);
+}
+
+.App-body {
+  display: grid;
+  margin: auto;
+  align-items: center;
+  max-width: 400px;
+
+  width: 85vw;
+}
+
+.body-text {
+  display: grid;
+  max-width: 400px;
+
+  width: 85vw;
 }
 
 .user-form {
