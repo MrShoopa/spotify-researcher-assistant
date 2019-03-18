@@ -18,10 +18,6 @@ export default class TrackAnalysis extends React.Component {
     }
 
     /*  Table Functions */
-    //TODO: If time allows
-    toggleColors = () => {
-
-    }
 
     sortBy = (type) => {
         console.log(`Sorting by ${type}`)
@@ -45,7 +41,7 @@ export default class TrackAnalysis extends React.Component {
         };
 
         return (
-            <div className='App'>
+            <div className='Analysis'>
                 <header className="App-header" >
                     <p>
                         Let's learn about your music!

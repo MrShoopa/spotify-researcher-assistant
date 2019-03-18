@@ -53,6 +53,18 @@
     }
 }
 
+@keyframes initial-screen-slide-down-empty-full {
+    from {
+        transform: translateY(-30%);
+        opacity: .0;
+    }
+
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
 @keyframes text-slide-up-empty-full {
     from {
         transform: translateY(100%);

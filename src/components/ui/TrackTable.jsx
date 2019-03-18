@@ -20,7 +20,7 @@ function TrackTable(props) {
 
     // Table of tracks featuring five details as listed below.
     return (
-        <div>
+        <div className='track-table'>
             <table id='track-table'>
                 <thead>
                     <tr>

@@ -1,3 +1,8 @@
+td {
+    padding: 2px;
+    border-radius: 1px;
+}
+
 button[type='sort'] {
     color: white;
     background-color: rgb(99, 99, 99);
@@ -16,4 +21,12 @@ button[type='sort'] :active {
 
 .sort-active {
     background-color: green;
+}
+
+.track-table {
+    opacity: 0;
+
+    animation: initial-screen-slide-down-empty-full ease-out .5s;
+    animation-delay: 2s;
+    animation-fill-mode: forwards;
 }

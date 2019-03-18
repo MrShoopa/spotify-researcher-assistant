@@ -115,7 +115,12 @@ const chartStyle = {
     margin: '10px',
     backgroundColor: 'slategrey',
     color: 'white',
-    borderRadius: '5px'
+    borderRadius: '5px',
+    opacity: '0',
+
+    animation: 'initial-screen-slide-up-empty-full ease-out .5s',
+    animationDelay: '.75s',
+    animationFillMode: 'forwards'
 }
 
 export default TrackScatterGraph
