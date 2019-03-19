@@ -14,7 +14,7 @@
   ],
   "background_color": "#252525",
   "theme_color": "#1DB954",
-  "display": "minimal-ui",
+  "display": "standalone",
   "scope": "/",
   "start_url": "https://mrshoopa.github.io/spotify-researcher-assistant"
 }
