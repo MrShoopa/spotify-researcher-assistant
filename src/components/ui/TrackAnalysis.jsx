@@ -3,7 +3,6 @@
     Title, Artist, Energy, Valence, and length (sec.)
 
     @author Joe (joev@uw.edu)
-    @date 3/16/2017
 */
 
 import React from 'react'

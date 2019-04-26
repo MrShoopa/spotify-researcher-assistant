@@ -3,7 +3,6 @@
     comparing their energy and valence values.
 
     @author Joe (joev@uw.edu)
-    @date 3/16/2017
     @reference (https://www.chartjs.org/docs/2.8.0/)
 */
 

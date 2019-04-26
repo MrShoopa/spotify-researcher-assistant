@@ -7,8 +7,6 @@ import './index.css';
 import App from './App';
 
 //  Retrieve access token beforehand
-// ? Did not have enough time to implement authorization and access_token retreival,
-// ? Using pre-fetched data: Spotify playlist data and user data.
 
 //  Server-side authentication
 //import './Auth.jsx';
