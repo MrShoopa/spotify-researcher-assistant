@@ -8,56 +8,30 @@
     @date       4/20/19
 */
 
-import React from 'react'
-import ReactDOM from 'react-dom'
-
-//  Internal Components
-import logo from './logo.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Particles from 'particlesjs'
+import HomePage from './components/ui/HomePage';
+import LoginPage from './components/ui/LoginPage';
+import PlaylistPage from './components/ui/PlaylistPage';
+import TrackAnalysis from './components/ui/TrackAnalysis';
+import SpotifyDataAccessor from './components/api/SpotifyDataAccessor';
 
-//  External Components
-import SpotifyDataHandler from './components/api/SpotifyDataHandler'
-import TrackAnalysis from './components/ui/TrackAnalysis'
+
+function Callback() {
+  const urlParams = new URLSearchParams(window.location.hash.replace(/#/, ''));
+  let token = urlParams.get('access_token');
+
+  if (token) {
+    SpotifyDataAccessor.setAccessToken(token);
+    return <Redirect to='/playlist/37i9dQZEVXcLk2EYE4vuVk' />;
+  } else {
+    return <Redirect to='/login' />;
+  }
+}
 
 class App extends React.Component {
-  constructor (props) {
-    super(props)
-
-    this.formAuthenticate = this.formAuthenticate.bind(this)
-  }
-
-  formAuthenticate = async (event) => {
-    event.preventDefault()
-    const data = new FormData(event.target)
-
-    try {
-      await this.SpotifyDataHandler.authenticate()
-      document.getElementById('hint-headline').innerHTML
-        = "Reading playlist..."
-    } catch {
-      document.getElementById('hint-headline').innerHTML
-        = "There seems to be an issue connecting with Spotify. Try again later."
-      return;
-    }
-
-    await this.SpotifyDataHandler.setState({ user: data.user_id, playlist: data.playlist_id })
-
-    this.generatePlaylistAnalytics()
-  }
-
-  generatePlaylistAnalytics = () => {
-
-    //let track_data = this.SpotifyDataHandler.fetchTrackData()       //  PRODUCTION
-
-    let track_data = this.SpotifyDataHandler.fetchTrackData('sample') //  DEBUG
-
-    ReactDOM.render(<TrackAnalysis track_data={track_data} />,
-      document.getElementById('root'))
-  }
-
-  render = () => {
-
+  render() {
     // Load background (ParticlesJS)
     window.onload = function () {
       Particles.init({
@@ -66,40 +40,15 @@ class App extends React.Component {
     };
 
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-        </header>
+      <Router>
+        <canvas className="background-particles"></canvas>
+        <script src={Particles}></script>
 
-        <div className='App-body'>
-
-          <div className="body-text" style={{ animation: 'text-slide-up-empty-full 1s' }}>
-            <p className="hello-headline" id="hello-headline">
-              <b>Hi! I'm your Spotify Researcher.</b>
-            </p>
-            <p className="hint-headline" id="hint-headline" style={{ animationDelay: '2s' }}>
-              Input a playlist and user ID to learn a little more about your music.
-              <br></br>
-              <br></br>
-              <i>Disclaimer: Unfortunately, fetching playlists is unavailable at the moment so a sample playlist will be used.</i>
-            </p>
-          </div>
-
-          <form className='user-form' onSubmit={this.formAuthenticate}>
-            <input type="text" name="user_id" placeholder="User ID" required />
-            <br></br>
-            <input type="text" name="playlist_id" placeholder="Playlist ID" required />
-            <br></br>
-            <input type="submit" value="Get the Facts" />
-          </form>
-
-          <canvas className="background-particles"></canvas>
-          <script src={Particles}></script>
-        </div>
-
-        <SpotifyDataHandler onRef={ref => (this.SpotifyDataHandler = ref)} />
-
-      </div >
+        <Route path='/' exact component={HomePage} />
+        <Route path='/login' component={LoginPage} />
+        <Route path='/callback' exact component={Callback} />
+        <Route path='/playlist/:playlistId' component={PlaylistPage} />
+      </Router>
     );
   }
 }

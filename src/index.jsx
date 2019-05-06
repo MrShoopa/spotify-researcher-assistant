@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-
 import './index.css';
-
 import App from './App';
 
 //  Retrieve access token beforehand
@@ -23,6 +21,7 @@ Dependencies needed:
 */
 
 
+// ReactDOM.render(<App />, document.getElementById('root'));
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // PWA
