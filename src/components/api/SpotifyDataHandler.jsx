@@ -160,4 +160,4 @@ SpotifyDataHandler.defaultProps = {
 
 }
 
-export default SpotifyDataHandler
+export default new SpotifyDataHandler()
