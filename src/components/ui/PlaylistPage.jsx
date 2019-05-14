@@ -1,4 +1,5 @@
 import React from 'react';
+import SpotifyDataHandler from '../api/SpotifyDataHandler';
 import SpotifyDataAccessor from '../api/SpotifyDataAccessor';
 import * as jsonexport from 'jsonexport/dist';
 
@@ -16,6 +17,15 @@ class PlaylistPage extends React.Component {
     }
 
     componentDidMount() {
+        playlist_id = this.props.match.params.playlistId;
+        
+         switch (playlistId) {
+          case 'Discover Weekly':
+          playlistID = 'discover_weekly_placerholder'
+          // TODO: Regex search Discover Weekly using DataHandler
+          break;
+          default:
+          break;
         const playlist_id = this.props.match.params.playlistId;
         this.dataAccessor.fetchPlaylist(playlist_id).then(data => {
 
