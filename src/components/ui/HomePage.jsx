@@ -9,20 +9,27 @@
 */
 
 import React from 'react'
+import { Dropdown } from 'react-bootstrap'
+import SpotifyDataHandler from '../api/SpotifyDataHandler'
 
 //  Internal Components
 import logo from '../../logo.svg'
 import './HomePage.scss'
 
 class HomePage extends React.Component {
-    constructor(props) {
+    constructor (props) {
         super(props)
-        this.state = { playlist_id: '' }
+        this.state = {
+            playlist_id: ''
+        }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        //this.setState({ playlists: SpotifyDataHandler.fetchPlaylists() })
+    }
 
     redirectToPlaylist = () => {
         this.props.history.push({ pathname: '/playlist/' + this.state.playlist_id })
@@ -38,6 +45,21 @@ class HomePage extends React.Component {
     }
 
     render = () => {
+        console.log(this.state.playlists)
+        var dropdown_playlists = this.state.playlists ?
+            (<Dropdown id="dropdown-playlist">
+                <Dropdown.Toggle>
+                    Select one of your playlists</Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                    {this.state.playlists.map(playlist =>
+                        (
+                            <Dropdown.Item href="#/action-1">{playlist.name}</Dropdown.Item>
+                        )
+                    )}
+                </Dropdown.Menu>
+            </Dropdown>)
+            : 'Loading playlists...'
 
         return (
             <div className="App">
@@ -59,7 +81,10 @@ class HomePage extends React.Component {
 
                     <form className='user-form' onSubmit={this.handleSubmit}>
                         <br />
-                        <input type="text" value={this.state.playlist_id} name="playlist_id" onChange={this.handleChange} placeholder="Playlist ID" required />
+                        <input type="text" value={this.state.playlist_id} name="playlist_id"
+                            onChange={this.handleChange} placeholder="Playlist ID" required />
+                        <br />
+                        {dropdown_playlists}
                         <br />
                         <input type="submit" value="Get the Facts" />
                     </form>

@@ -45,6 +45,8 @@ class SpotifyDataHandler {
     async fetchPlaylists() {
         this.playlists = await this.Spotify.getUserPlaylists(this.user_info.id)
 
+        //console.log(this.playlists)
+
         return this.playlists
     }
 
