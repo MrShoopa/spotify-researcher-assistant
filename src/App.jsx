@@ -14,24 +14,19 @@ import Particles from 'particlesjs'
 import HomePage from './components/ui/HomePage';
 import LoginPage from './components/ui/LoginPage';
 import PlaylistPage from './components/ui/PlaylistPage';
-import TrackAnalysis from './components/ui/TrackAnalysis';
-import SpotifyDataAccessor from './components/api/SpotifyDataAccessor';
-import SpotifyDataHandler from './components/api/SpotifyDataHandler';
 
+//Retrieve access_token and redirect it to playlistPage
 function Callback() {
   const urlParams = new URLSearchParams(window.location.hash.replace(/#/, ''));
   let token = urlParams.get('access_token');
 
   if (token) {
-    SpotifyDataHandler.setAccessToken(token)  //  Set user token throughout app
-
-    //TODO: Retrieve track data
-
-    let playlist_id = '37i9dQZEVXcFbAqSiwWlsc'
-
-    return <Redirect to={`/playlist/${playlist_id}`} />
-  } else
-    return <Redirect to='/login' />
+    //Storing the accessToken of current session
+    sessionStorage.setItem('token', token);
+    return <Redirect to='/home' />;
+  } else {
+    return <Redirect to='/login' />;
+  }
 }
 
 class App extends React.Component {
@@ -47,9 +42,8 @@ class App extends React.Component {
       <Router>
         <canvas className="background-particles"></canvas>
         <script src={Particles}></script>
-
-        <Route path='/' exact component={HomePage} />
-        <Route path='/login' component={LoginPage} />
+        <Route path='/' exact component={LoginPage} />
+        <Route path='/home' component={HomePage} />
         <Route path='/callback' exact component={Callback} />
         <Route path='/playlist/:playlistId' component={PlaylistPage} />
       </Router>
