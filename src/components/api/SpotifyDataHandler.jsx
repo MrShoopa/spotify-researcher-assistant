@@ -10,42 +10,20 @@
 //  Internal Components
 import React from 'react'
 import SpotifyWebAPI from 'spotify-web-api-js'
-import Axios from 'axios'
-import AxiosRetry from 'axios-retry'
 
 //  Resources
 import auth from '../../resources/auth.json'   //  Must include valid IDs before methods are called
+
+//  Samples
 import track_list from '../../data/track_list.json'
 import track_data from '../../data/track_info.json'
-import track_list_sample from '../../data/track_list_sample.json'
+//import track_list_sample from '../../data/track_list_sample.json'
 import track_data_sample from '../../data/track_info_sample.json'
-
-
-const authConfig = {
-    method: 'post',
-    url: auth.spotify.access.url,
-    params: {
-        grant_type: 'client_credentials'
-    },
-    headers: {
-        'Authorization': 'Basic ' +
-            (new Buffer(auth.spotify.client.id + ':' + auth.spotify.client.secret).toString('base64')),
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Accept': 'application/json',
-
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'origin, x-requested-with, Content-Type, Accept'
-    }
-}
-
-AxiosRetry(Axios, { retries: 5 });  //  Retry when API calls fail
 
 
 class SpotifyDataHandler {
     constructor (token) {
-
-        if (token !== auth.spotify.access.token)
-            this.setAccessToken(token)
+        this.setAccessToken(token)  // Sets token across application
 
         this.user_info = this.Spotify.getMe()
         console.log(this.user_info)
@@ -57,7 +35,7 @@ class SpotifyDataHandler {
     setAccessToken(access_token) {
         this.Spotify.setAccessToken(access_token);
 
-        auth.spotify.access.token = access_token; // Sets new global token
+        sessionStorage.setItem('token', access_token);// Sets new global token
 
         console.log('New token for Spotify set from user input.')
     }
@@ -174,4 +152,4 @@ class SpotifyDataHandler {
     }
 }
 
-export default new SpotifyDataHandler(auth.spotify.access.token);
+export default new SpotifyDataHandler(sessionStorage.getItem('token'));

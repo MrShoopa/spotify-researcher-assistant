@@ -4,13 +4,14 @@
     retrieve information about that playlist's tracks.
     
     @reference  (https://developer.spotify.com/documentation/web-api/)
-    @author     Joe Villegas (joev@uw.edu)
+    @author     Joe Villegas (joev@uw.edu), Chhoden Gurung
     @date       4/20/19
 */
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Particles from 'particlesjs'
+
 import HomePage from './components/ui/HomePage';
 import LoginPage from './components/ui/LoginPage';
 import PlaylistPage from './components/ui/PlaylistPage';
