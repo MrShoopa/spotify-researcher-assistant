@@ -3,6 +3,13 @@ import SpotifyWebAPI from 'spotify-web-api-js'
 class SpotifyDataAccesor {
     spotify = new SpotifyWebAPI()
 
+    constructor() {
+        //Accessing the accessToken of previous session
+        const token = sessionStorage.getItem('token');
+        this.setAccessToken(token);
+
+    }
+
     setAccessToken(accessToken) {
         this.spotify.setAccessToken(accessToken);
     }
@@ -17,6 +24,4 @@ class SpotifyDataAccesor {
 
 }
 
-const dataAccessor = new SpotifyDataAccesor();
-
-export default dataAccessor;
+export default SpotifyDataAccesor;

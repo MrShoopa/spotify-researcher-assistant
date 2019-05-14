@@ -9,35 +9,32 @@
 */
 
 import React from 'react'
-import ReactDOM from 'react-dom'
-import { Redirect } from "react-router-dom";
 
 //  Internal Components
 import logo from '../../logo.svg'
-import '../../App.css'
-
-//  External Components
-import SpotifyDataHandler from '../api/SpotifyDataHandler'
-import TrackAnalysis from './TrackAnalysis'
+import './HomePage.scss'
 
 class HomePage extends React.Component {
     constructor(props) {
         super(props)
+        this.state = { playlist_id: '' }
 
-        this.formAuthenticate = this.formAuthenticate.bind(this)
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    formAuthenticate = async (event) => {
-        event.preventDefault()
-        const data = new FormData(event.target)
-        console.log(event);
 
-        console.log(data);
+    redirectToPlaylist = () => {
+        this.props.history.push({ pathname: '/playlist/' + this.state.playlist_id })
+    }
 
-        // if (data) {
-        //     // redirect to playlist page
-        //     this.props.history.push(`/playlist/${data.playlist_id}`);
-        // }
+    handleChange(event) {
+        this.setState({ playlist_id: event.target.value });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        this.redirectToPlaylist();
     }
 
     render = () => {
@@ -56,19 +53,17 @@ class HomePage extends React.Component {
                         </p>
                         <p className="hint-headline" id="hint-headline" style={{ animationDelay: '2s' }}>
                             Input a playlist ID to learn a little more about your music.
-              <br></br>
+                            <br />
                         </p>
                     </div>
 
-                    <form className='user-form' onSubmit={this.formAuthenticate}>
-                        <input type="text" name="user_id" placeholder="User ID" required />
-                        <br></br>
-                        <input type="text" name="playlist_id" placeholder="Playlist ID" required />
-                        <br></br>
+                    <form className='user-form' onSubmit={this.handleSubmit}>
+                        <br />
+                        <input type="text" value={this.state.playlist_id} name="playlist_id" onChange={this.handleChange} placeholder="Playlist ID" required />
+                        <br />
                         <input type="submit" value="Get the Facts" />
                     </form>
                 </div>
-
             </div >
         );
     }
