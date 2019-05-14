@@ -15,23 +15,23 @@ import HomePage from './components/ui/HomePage';
 import LoginPage from './components/ui/LoginPage';
 import PlaylistPage from './components/ui/PlaylistPage';
 import TrackAnalysis from './components/ui/TrackAnalysis';
+import SpotifyDataAccessor from './components/api/SpotifyDataAccessor';
 import SpotifyDataHandler from './components/api/SpotifyDataHandler';
-
 
 function Callback() {
   const urlParams = new URLSearchParams(window.location.hash.replace(/#/, ''));
   let token = urlParams.get('access_token');
 
   if (token) {
-    SpotifyDataHandler.setAccessToken(token); //  Set user token throughout app
-
-    //TODO: Fetch playlists and select a random one!
+    SpotifyDataHandler.setAccessToken(token)  //  Set user token throughout app
 
     //TODO: Retrieve track data
-    return <Redirect to='/playlist/37i9dQZEVXcLk2EYE4vuVk' />;
-  } else {
-    return <Redirect to='/login' />;
-  }
+
+    let playlist_id = '37i9dQZEVXcFbAqSiwWlsc'
+
+    return <Redirect to={`/playlist/${playlist_id}`} />
+  } else
+    return <Redirect to='/login' />
 }
 
 class App extends React.Component {

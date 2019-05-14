@@ -21,8 +21,6 @@ import track_list_sample from '../../data/track_list_sample.json'
 import track_data_sample from '../../data/track_info_sample.json'
 
 
-const Spotify = new SpotifyWebAPI()
-
 const authConfig = {
     method: 'post',
     url: auth.spotify.access.url,
@@ -43,38 +41,57 @@ const authConfig = {
 AxiosRetry(Axios, { retries: 5 });  //  Retry when API calls fail
 
 
-class SpotifyDataHandler extends React.Component {
-    constructor (props) {
-        super(props)
+class SpotifyDataHandler {
+    constructor (token) {
 
-        let TOKEN
+        if (token !== auth.spotify.access.token)
+            this.setAccessToken(token)
 
-        if (TOKEN) Spotify.setAccessToken(auth.spotify.access.token)
-
-        Axios.request(authConfig)
-            .then(res => {
-                console.log(res)
-
-                Spotify.setAccessToken(auth.spotify.access.token)
-            })
-            .catch(err => (
-                console.log(err)
-            ))
-
-
-
+        this.user_info = this.Spotify.getMe()
+        console.log(this.user_info)
     }
 
+    Spotify = new SpotifyWebAPI()
 
 
-    //  Authenticate app access to Spotify Web API.
-    authenticate = async () => {
+    setAccessToken(access_token) {
+        this.Spotify.setAccessToken(access_token);
 
-        console.log('Hello, you interacted with the form input! :)')
+        auth.spotify.access.token = access_token; // Sets new global token
 
+        console.log('New token for Spotify set from user input.')
     }
 
     /*   Data fetch functions   */
+
+    async fetchPlaylists() {
+        this.playlists = await this.Spotify.getUserPlaylists(this.user_info.id)
+
+        return this.playlists
+    }
+
+    fetchPlaylist(playlist_id) {
+        if (playlist_id === null) {
+            return console.error('User did not specify Playlist ID.');
+        }
+
+        return this.Spotify.getPlaylist(playlist_id)
+    }
+
+    async fetchPlaylistID(name) {
+        if (!this.playlists)
+            await this.fetchPlaylists()
+        console.log(this.playlists)
+
+        if (!name) {
+            console.err('Playlist ID fetching failed: No playlist info specified.')
+            return 'not cool'
+        } else {
+            //this.Spotify
+            return 'cool'
+        }
+    }
+
     //  Returns Track object using specified playlist ID(s), defaults to sample ID
     fetchPlaylistData = (
         playlist_id = this.state.playlist_id) => {
@@ -83,7 +100,7 @@ class SpotifyDataHandler extends React.Component {
 
         if (playlist_id === null) return console.error('User did not specify Playlist ID.')
 
-        Spotify.getPlaylist(playlist_id)
+        this.Spotify.getPlaylist(playlist_id)
             .then(data => {
                 track_list = data
                 console.log(`Received a playlist: `, data)
@@ -98,7 +115,7 @@ class SpotifyDataHandler extends React.Component {
         //  When sample track data is requested
         if (track_ids === 'sample') return track_data_sample.audio_features
 
-        Spotify.getAudioFeaturesForTracks(track_ids)
+        this.Spotify.getAudioFeaturesForTracks(track_ids)
             .then(data => {
                 track_data = data
                 console.log(`Audio features for track(s): `, data)
@@ -156,8 +173,5 @@ class SpotifyDataHandler extends React.Component {
         return (<p></p>)
     }
 }
-SpotifyDataHandler.defaultProps = {
 
-}
-
-export default new SpotifyDataHandler()
+export default new SpotifyDataHandler(auth.spotify.access.token);

@@ -1,8 +1,8 @@
 import React from 'react';
-import SpotifyDataAccessor from '../api/SpotifyDataAccessor';
+import SpotifyDataHandler from '../api/SpotifyDataHandler';
 
 class PlaylistPage extends React.Component {
-    constructor(props) {
+    constructor (props) {
         super(props)
 
         this.state = {
@@ -12,9 +12,18 @@ class PlaylistPage extends React.Component {
 
     componentDidMount() {
         const playlistId = this.props.match.params.playlistId;
-        SpotifyDataAccessor.fetchPlaylist(playlistId).then(data => {
-            this.setState({ playlist: data })
-        });
+
+        switch (playlistId) {
+            case 'Discover Weekly':
+                SpotifyDataHandler.fetchPlaylist(playlistId).then(data => {
+                    this.setState({ playlist: data })
+                });
+                break
+            default:
+                SpotifyDataHandler.fetchPlaylist(playlistId).then(data => {
+                    this.setState({ playlist: data })
+                });
+        }
     }
 
     render() {
