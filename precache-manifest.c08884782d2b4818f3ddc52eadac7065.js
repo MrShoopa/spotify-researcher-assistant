@@ -8,19 +8,19 @@ self.__precacheManifest = [
     "url": "/spotify-researcher-assistant/static/js/runtime~main.8a1e847b.js"
   },
   {
-    "revision": "6566ffdb332ec380ef12",
-    "url": "/spotify-researcher-assistant/static/js/main.a560a4e7.chunk.js"
+    "revision": "822f514837f007fa5cbf",
+    "url": "/spotify-researcher-assistant/static/js/main.9332b869.chunk.js"
   },
   {
     "revision": "f3d295b6a48143b415b2",
     "url": "/spotify-researcher-assistant/static/js/2.227488dd.chunk.js"
   },
   {
-    "revision": "6566ffdb332ec380ef12",
+    "revision": "822f514837f007fa5cbf",
     "url": "/spotify-researcher-assistant/static/css/main.e6b45d39.chunk.css"
   },
   {
-    "revision": "5327fe6e593d26bc787cb6a1ab0ce25a",
+    "revision": "ede7e73268efbed9cf6ff09902feab07",
     "url": "/spotify-researcher-assistant/index.html"
   }
 ];
