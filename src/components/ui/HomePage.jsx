@@ -9,20 +9,34 @@
 */
 
 import React from 'react'
+import { Dropdown, Button } from 'react-bootstrap'
+import SpotifyDataHandler from '../api/SpotifyDataHandler'
 
 //  Internal Components
 import logo from '../../logo.svg'
 import './HomePage.scss'
 
 class HomePage extends React.Component {
-    constructor(props) {
+    constructor (props) {
         super(props)
-        this.state = { playlist_id: '' }
+        this.state = {
+            playlist_id: ''
+        }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        var playlistData = async () => {
+            let playlists = await SpotifyDataHandler.fetchPlaylists();
+
+            this.setState(() => {
+                return { playlists: playlists }
+            });
+        }
+        playlistData()
+    }
 
     redirectToPlaylist = () => {
         this.props.history.push({ pathname: '/playlist/' + this.state.playlist_id })
@@ -38,6 +52,14 @@ class HomePage extends React.Component {
     }
 
     render = () => {
+        var dropdown_playlists = this.state.playlists ?
+            this.state.playlists.map(playlist => {
+                return (<Button className='btn-block'
+                    key={playlist.id + '-key'} href={`/playlist/${playlist.id}`}
+                >
+                    {playlist.name}</Button>)
+            })
+            : 'Loading playlists'
 
         return (
             <div className="App">
@@ -59,7 +81,18 @@ class HomePage extends React.Component {
 
                     <form className='user-form' onSubmit={this.handleSubmit}>
                         <br />
-                        <input type="text" value={this.state.playlist_id} name="playlist_id" onChange={this.handleChange} placeholder="Playlist ID" required />
+                        <input type="text" value={this.state.playlist_id} name="playlist_id"
+                            onChange={this.handleChange} placeholder="Playlist ID" required />
+                        <br />
+                        <Dropdown id="dropdown-playlist" className='fill-style'>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic" className='fill-style'>
+                                Select one of your playlists
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu className='fill-style' >
+                                {dropdown_playlists}
+                            </Dropdown.Menu>
+                        </Dropdown>
                         <br />
                         <input type="submit" value="Get the Facts" />
                     </form>

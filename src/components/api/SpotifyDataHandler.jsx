@@ -25,8 +25,12 @@ class SpotifyDataHandler {
     constructor (token) {
         this.setAccessToken(token)  // Sets token across application
 
-        this.user_info = this.Spotify.getMe()
-        console.log(this.user_info)
+        this.user_info = this.Spotify.getMe().then(async (result) => {
+            await console.log(`Logged in as ${result.display_name}`)
+
+            return result
+        }
+        )
     }
 
     Spotify = new SpotifyWebAPI()
@@ -43,9 +47,19 @@ class SpotifyDataHandler {
     /*   Data fetch functions   */
 
     async fetchPlaylists() {
-        this.playlists = await this.Spotify.getUserPlaylists(this.user_info.id)
+        let playlists
 
-        return this.playlists
+        await this.Spotify.getUserPlaylists(this.user_info.id)
+            .catch((error) => {
+                console.error(error)
+            }).then((result) => {
+                //console.log(result)
+                playlists = result.items
+            }).finally(() => {
+                return 'null'
+            })
+
+        return playlists
     }
 
     fetchPlaylist(playlist_id) {
