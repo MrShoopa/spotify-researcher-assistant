@@ -14,12 +14,12 @@ class SpotifyDataAccesor {
         this.spotify.setAccessToken(accessToken);
     }
 
-    fetchPlaylist(playlist_id) {
-        if (playlist_id === null) {
+    fetchPlaylist(playlistID) {
+        if (playlistID === null) {
             return console.error('User did not specify Playlist ID.');
         }
 
-        return this.spotify.getPlaylist(playlist_id)
+        return this.spotify.getPlaylist(playlistID)
     }
 
 }

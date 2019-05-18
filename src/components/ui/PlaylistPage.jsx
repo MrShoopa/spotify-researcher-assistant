@@ -17,23 +17,23 @@ class PlaylistPage extends React.Component {
     }
 
     componentDidMount() {
-        let playlist_id = this.props.match.params.playlistId;
-        switch (playlist_id) {
+        let playlistID = this.props.match.params.playlistId;
+        switch (playlistID) {
             case 'Discover Weekly':
-                playlist_id = 'discover_weekly_placeholder'
+                playlistID = 'discover_weekly_placeholder'
                 // TODO: Regex search Discover Weekly using DataHandler
                 break;
             default:
                 break;
         }
 
-        SpotifyDataHandler.fetchPlaylist(playlist_id).then(data => {
+        SpotifyDataHandler.fetchPlaylist(playlistID).then(data => {
 
             //Convert Json to csv
             jsonexport(data, (err, csv) => {
                 if (err) return console.log(err);
 
-                console.log(`CSV file of playlist ${playlist_id} created:`)
+                console.log(`CSV file of playlist ${playlistID} created:`)
                 console.log(csv)
 
                 this.setState({

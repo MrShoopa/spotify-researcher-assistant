@@ -40,7 +40,7 @@ class App extends React.Component {
     };
 
     return (
-      <Router>
+      <Router basename='/spotify-researcher-assistant/'>
         <canvas className="background-particles"></canvas>
         <script src={Particles}></script>
         <Route path='/' exact component={LoginPage} />
