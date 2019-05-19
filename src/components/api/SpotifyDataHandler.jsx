@@ -25,8 +25,8 @@ class SpotifyDataHandler {
     constructor (token) {
         this.setAccessToken(token)  // Sets token across application
 
-        this.user_info = this.Spotify.getMe().then(async (result) => {
-            await console.log(`Logged in as ${result.display_name}`)
+        this.user_info = this.Spotify.getMe().then((result) => {
+            console.log(`Logged in as ${result.display_name}`)
 
             return result
         }

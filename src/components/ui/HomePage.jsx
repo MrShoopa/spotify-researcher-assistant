@@ -55,7 +55,7 @@ class HomePage extends React.Component {
         var dropdown_playlists = this.state.playlists ?
             this.state.playlists.map(playlist => {
                 return (<Button className='btn-block'
-                    key={playlist.id + '-key'} href={`/spotify-researcher-assistant/playlist/${playlist.id}`}
+                    key={playlist.id + '-key'} href={`/playlist/${playlist.id}`}
                 >
                     {playlist.name}</Button>)
             })
