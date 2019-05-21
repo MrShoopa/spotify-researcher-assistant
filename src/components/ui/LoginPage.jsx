@@ -3,17 +3,20 @@ import { Form, FormGroup, Button } from 'react-bootstrap';
 import './LoginPage.scss';
 import auth from '../../resources/auth.json';
 
+import _localhost from '../../App'
+
 
 class LoginPage extends Component {
     render() {
-        const client_id = auth.spotify.client.id;
-        const redirect_uri = auth.spotify.client.redirect_uri;
+        const clientID = auth.spotify.client.id;
+        const redirectURI = !_localhost ?
+            auth.spotify.client.redirectURI : auth.spotify.client.redirectURILocal
         const scope = 'user-read-private user-read-email';
-        const response_type = 'token';
+        const responseType = 'token';
         const state = '123';
 
         const url =
-            `https://accounts.spotify.com/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope}&response_type=${response_type}&state=${state}`
+            `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&scope=${scope}&response_type=${responseType}&state=${state}`
         return (
             <div className="login">
                 <Form horizontal>

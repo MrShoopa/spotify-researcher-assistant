@@ -25,8 +25,8 @@ class SpotifyDataHandler {
     constructor(token) {
         this.setAccessToken(token)  // Sets token across application
 
-        this.user_info = this.Spotify.getMe().then(async (result) => {
-            await console.log(`Logged in as ${result.display_name}`)
+        this.user_info = this.Spotify.getMe().then((result) => {
+            console.log(`Logged in as ${result.display_name}`)
 
             return result
         }
@@ -62,12 +62,12 @@ class SpotifyDataHandler {
         return playlists
     }
 
-    fetchPlaylist(playlist_id) {
-        if (playlist_id === null) {
+    fetchPlaylist(playlistID) {
+        if (playlistID === null) {
             return console.error('User did not specify Playlist ID.');
         }
 
-        return this.Spotify.getPlaylist(playlist_id)
+        return this.Spotify.getPlaylist(playlistID)
     }
 
     async fetchPlaylistID(name) {
@@ -86,13 +86,13 @@ class SpotifyDataHandler {
 
     //  Returns Track object using specified playlist ID(s), defaults to sample ID
     fetchPlaylistData = (
-        playlist_id = this.state.playlist_id) => {
+        playlistID = this.state.playlistID) => {
         //  When sample playlist is requested
-        playlist_id = 'sample' ? auth.spotify.sample.playlist_id : playlist_id
+        playlistID = 'sample' ? auth.spotify.sample.playlistID : playlistID
 
-        if (playlist_id === null) return console.error('User did not specify Playlist ID.')
+        if (playlistID === null) return console.error('User did not specify Playlist ID.')
 
-        this.Spotify.getPlaylist(playlist_id)
+        this.Spotify.getPlaylist(playlistID)
             .then(data => {
                 track_list = data
                 console.log(`Received a playlist: `, data)

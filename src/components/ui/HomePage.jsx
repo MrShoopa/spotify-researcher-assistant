@@ -20,7 +20,7 @@ class HomePage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            playlist_id: ''
+            playlistID: ''
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -39,11 +39,11 @@ class HomePage extends React.Component {
     }
 
     redirectToPlaylist = () => {
-        this.props.history.push({ pathname: '/playlist/' + this.state.playlist_id })
+            this.props.history.push({ pathname: '/playlist/' + this.state.playlistID })
     }
 
     handleChange(event) {
-        this.setState({ playlist_id: event.target.value });
+        this.setState({ playlistID: event.target.value });
     }
 
     handleSubmit(event) {
@@ -81,7 +81,7 @@ class HomePage extends React.Component {
 
                     <form className='user-form' onSubmit={this.handleSubmit}>
                         <br />
-                        <input type="text" value={this.state.playlist_id} name="playlist_id"
+                        <input type="text" value={this.state.playlistID} name="playlistID"
                             onChange={this.handleChange} placeholder="Playlist ID" required />
                         <br />
                         <Dropdown id="dropdown-playlist" className='fill-style'>
