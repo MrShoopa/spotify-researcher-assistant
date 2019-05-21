@@ -7,7 +7,7 @@ import { Button } from 'react-bootstrap';
 
 
 class PlaylistPage extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props)
 
         this.state = {
@@ -27,17 +27,34 @@ class PlaylistPage extends React.Component {
                 break;
         }
 
-        SpotifyDataHandler.fetchPlaylist(playlist_id).then(data => {
+        SpotifyDataHandler.fetchPlaylist(playlist_id).then(playlist => {
+            // Filter Json data
+            const filteredData = playlist.tracks.items.map(item => {
+                // console.log(item.track)
+                return {
+                    albumName: item.track.album.name,
+                    albumReleaseDate: item.track.album.release_date,
+                    totalTracks: item.track.album.total_tracks,
+                    trackName: item.track.name,
+                    trackPopularity: item.track.popularity,
+                    artist: item.track.artists.map(artist => {
+                        return {
+                            name: artist.name,
+                            artistType: artist.type
+                        }
+                    })
+                }
+            })
 
-            //Convert Json to csv
-            jsonexport(data, (err, csv) => {
+            //Convert filtered Json data to csv
+            jsonexport(filteredData, (err, csv) => {
                 if (err) return console.log(err);
 
                 console.log(`CSV file of playlist ${playlist_id} created:`)
                 console.log(csv)
 
                 this.setState({
-                    playlist: data,
+                    playlist: playlist,
                     playlistCsv: csv
                 })
             })
