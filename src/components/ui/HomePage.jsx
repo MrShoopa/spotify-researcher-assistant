@@ -17,7 +17,7 @@ import logo from '../../logo.svg'
 import './HomePage.scss'
 
 class HomePage extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props)
         this.state = {
             playlistID: ''

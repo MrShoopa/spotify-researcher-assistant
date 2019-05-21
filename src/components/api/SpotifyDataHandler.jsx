@@ -22,7 +22,7 @@ import track_data_sample from '../../data/track_info_sample.json'
 
 
 class SpotifyDataHandler {
-    constructor (token) {
+    constructor(token) {
         this.setAccessToken(token)  // Sets token across application
 
         this.user_info = this.Spotify.getMe().then((result) => {
