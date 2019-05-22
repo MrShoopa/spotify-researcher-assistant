@@ -7,7 +7,7 @@ import { Button } from 'react-bootstrap';
 
 
 class PlaylistPage extends React.Component {
-    constructor(props) {
+    constructor (props) {
         super(props)
 
         this.state = {
@@ -30,6 +30,9 @@ class PlaylistPage extends React.Component {
         SpotifyDataHandler.fetchPlaylist(playlistID).then(playlist => {
             // Filter Json data
             const filteredData = playlist.tracks.items.map(item => {
+                /* //TODO: Include ID and parse IDs of each track so we can include audio features :)
+                    Joe: I plan to work on this around today and tomorrow.
+                */
                 // console.log(item.track)
                 return {
                     albumName: item.track.album.name,
@@ -37,6 +40,7 @@ class PlaylistPage extends React.Component {
                     totalTracks: item.track.album.total_tracks,
                     trackName: item.track.name,
                     trackPopularity: item.track.popularity,
+                    trackID: item.track.ID,
                     artist: item.track.artists.map(artist => {
                         return {
                             name: artist.name,
