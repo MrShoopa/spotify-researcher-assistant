@@ -146,6 +146,22 @@ class SpotifyDataHandler {
         return track_list.items[Math.floor(Math.random() * track_amount)].track.id
     }
 
+    /*  Customized recommendation fetchers */
+
+    // Based off a playlist's average energy, valence, and best artist. //* Version 1
+    fetchCustomizedRecommendation = async (energy, valence, artistID) => {
+        let recommendedPlaylist = await this.Spotify.getRecommendations({
+            limit: '25',
+            target_energy: energy,      //  Average
+            target_valence: valence,    //  Average
+            seed_artists: artistID      //  Top artist
+        })
+
+        console.log(recommendedPlaylist)
+        return recommendedPlaylist.tracks
+
+    }
+
     /*  Lifecycle functions  */
     componentDidMount = () => {
         this.props.onRef(this)
