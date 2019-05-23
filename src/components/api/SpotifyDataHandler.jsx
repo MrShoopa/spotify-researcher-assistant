@@ -16,7 +16,7 @@ import auth from '../../resources/auth.json'   //  Must include valid IDs before
 
 //  Samples
 import track_list from '../../data/track_list.json'
-import track_data from '../../data/track_info.json'
+//import track_data from '../../data/track_info.json'
 //import track_list_sample from '../../data/track_list_sample.json'
 import track_data_sample from '../../data/track_info_sample.json'
 import { Promise } from 'q';
@@ -27,7 +27,7 @@ class SpotifyDataHandler {
         this.setAccessToken(token)  // Sets token across application
 
         this.user_info = this.Spotify.getMe().then((result) => {
-            console.log(`Logged in as ${result.display_name}`)
+            console.log(`--- LOGGED IN AS ${result.display_name} ---`)
 
             return result
         }
@@ -42,7 +42,7 @@ class SpotifyDataHandler {
 
         sessionStorage.setItem('token', access_token);// Sets new global token
 
-        console.log('New token for Spotify set from user input.')
+        console.log('New token for Spotify set from user input!')
     }
 
     /*   Data fetch functions   */

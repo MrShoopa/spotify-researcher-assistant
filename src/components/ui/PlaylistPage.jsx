@@ -3,8 +3,8 @@ import * as jsonexport from 'jsonexport/dist';
 
 import SpotifyDataHandler from '../api/SpotifyDataHandler';
 
-import TrackTable from './Analytics/TrackTable'
-import TrackScatterGraph from './Analytics/TrackScatterGraph'
+//import TrackTable from './Analytics/TrackTable'
+//import TrackScatterGraph from './Analytics/TrackScatterGraph'
 import PlaylistRecommendation from './Recommendation/PlaylistRecommendationTable'
 
 // Component
@@ -21,7 +21,7 @@ class PlaylistPage extends React.Component {
             energyAverage: 0,
             valenceAverage: 0,
             topArtistID: 0,
-            bestTrackPopularity: 100
+            bestTrackPopularity: 0
 
         }
     }
@@ -42,15 +42,24 @@ class PlaylistPage extends React.Component {
             // Filter JSON data
             const finalizedData = await new Promise(async (resolve, reject) => {
 
+                //  Total audio values
+                let energyTotal = 0, valenceTotal = 0
+
                 let filteredData = playlist.tracks.items.map(async (item, index) => {
                     //.console.log(item.track)
                     let audioFeatures = await SpotifyDataHandler.fetchTrackData(item.track.id)
 
+                    energyTotal += audioFeatures.energy
+                    valenceTotal += audioFeatures.valence
+
+
                     //  Calculating averages
-                    this.setState((state) => ({
-                        energyAverage: (state.energyAverage + audioFeatures.energy) / (index + 1),
-                        valenceAverage: (state.valenceAverage + audioFeatures.valence) / (index + 1)
-                    }))
+                    if (index === playlist.tracks.items.length - 1)
+                        this.setState(() => ({
+                            energyAverage: (energyTotal / filteredData.length),
+                            valenceAverage: (valenceTotal / filteredData.length)
+                        }))
+
 
                     return {
 
@@ -62,8 +71,10 @@ class PlaylistPage extends React.Component {
                         trackName: item.track.name,
                         trackPopularity: item.track.popularity,
                         artist: item.track.artists.map(artist => {
-                            if (item.track.popularity < this.state.bestTrackPopularity)
-                                this.state.topArtistID = item.track.artist
+                            if (item.track.popularity > this.state.bestTrackPopularity) {
+                                this.setState({ bestTrackPopularity: item.track.popularity })
+                                this.state.topArtistID = artist.id
+                            }
                             return {
                                 name: artist.name,
                                 artistType: artist.type
@@ -71,6 +82,7 @@ class PlaylistPage extends React.Component {
                         }),
 
                         //  Audio Features
+
                         energy: audioFeatures.energy,
                         valence: audioFeatures.valence,
                         danceability: audioFeatures.danceability,
@@ -89,8 +101,8 @@ class PlaylistPage extends React.Component {
             //TODO: Verify results, fetch top artist's ID
             console.log(
                 `Best artist's ID: ${this.state.topArtistID}
-                \nAverage valence:${this.state.valenceAverage}
-                \nAverage energy:${this.state.energyAverage}`)
+                \nAverage valence: ${this.state.valenceAverage}
+                \nAverage energy: ${this.state.energyAverage}`)
 
             //Convert filtered Json data to csv
             jsonexport(finalizedData, (err, csv) => {
@@ -110,6 +122,19 @@ class PlaylistPage extends React.Component {
     render() {
         const csvHref = `data:text/csv;charset=utf-8,${escape(this.state.playlistCsv)}`;
 
+        let playlistComponent
+
+        if (this.state.energyAverage)
+            playlistComponent = (
+                <PlaylistRecommendation
+                    energyAverage={this.state.energyAverage}
+                    valenceAverage={this.state.valenceAverage}
+                    artistPopular={this.state.topArtistID}
+                    style={{ display: 'none' }}>
+                </PlaylistRecommendation>)
+        else
+            playlistComponent = (<p></p>)
+
         return (
             <div style={styles} >
                 <h1>This is your playlist's page!</h1>
@@ -127,13 +152,7 @@ class PlaylistPage extends React.Component {
                 >
                     What would you recommend me?
                 </Button >
-
-                <PlaylistRecommendation
-                    energyAverage={this.state.energyAverage}
-                    valenceAverage={this.state.valenceAverage}
-                    artistPopular={this.state.topArtistID}
-                    style={{ display: 'none' }}>
-                </PlaylistRecommendation>
+                {playlistComponent}
             </div >
         );
     }

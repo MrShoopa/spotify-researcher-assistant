@@ -18,10 +18,10 @@ export default class PlaylistRecommendationTable extends React.Component {
 
     }
 
-    componentDidMount() {
+    async componentDidMount() {
 
         //* See function to customize parameters
-        let recommendedPlaylist = SpotifyDataHandler.fetchCustomizedRecommendation(this.props.energy, this.props.valence, this.props.artistID)
+        let recommendedPlaylist = await SpotifyDataHandler.fetchCustomizedRecommendation(this.props.energy, this.props.valence, this.props.artistID)
 
         console.log(recommendedPlaylist)
     }
