@@ -1,8 +1,12 @@
 import React from 'react';
-import SpotifyDataHandler from '../api/SpotifyDataHandler';
-//import SpotifyDataAccessor from '../api/SpotifyDataAccessor';
 import * as jsonexport from 'jsonexport/dist';
 
+import SpotifyDataHandler from '../api/SpotifyDataHandler';
+
+import TrackTable from './Analytics/TrackTable'
+import TrackScatterGraph from './Analytics/TrackScatterGraph'
+
+// Component
 import { Button } from 'react-bootstrap';
 
 
@@ -27,31 +31,49 @@ class PlaylistPage extends React.Component {
                 break;
         }
 
-        SpotifyDataHandler.fetchPlaylist(playlistID).then(playlist => {
-            // Filter Json data
-            const filteredData = playlist.tracks.items.map(item => {
-                /* //TODO: Include ID and parse IDs of each track so we can include audio features :)
-                    Joe: I plan to work on this around today and tomorrow.
-                */
-                // console.log(item.track)
-                return {
-                    albumName: item.track.album.name,
-                    albumReleaseDate: item.track.album.release_date,
-                    totalTracks: item.track.album.total_tracks,
-                    trackName: item.track.name,
-                    trackPopularity: item.track.popularity,
-                    trackID: item.track.ID,
-                    artist: item.track.artists.map(artist => {
-                        return {
-                            name: artist.name,
-                            artistType: artist.type
-                        }
-                    })
-                }
+
+
+        SpotifyDataHandler.fetchPlaylist(playlistID).then(async playlist => {
+            // Filter JSON data
+            const finalizedData = await new Promise((resolve, reject) => {
+
+                let filteredData = (playlist.tracks.items.map((item) => {
+                    //. console.log(item.track)
+                    let audioFeatures = SpotifyDataHandler.fetchTrackData(item.track.id)
+
+                    return {
+
+                        //  Core track data
+                        trackID: item.track.id,
+                        albumName: item.track.album.name,
+                        albumReleaseDate: item.track.album.release_date,
+                        totalTracks: item.track.album.total_tracks,
+                        trackName: item.track.name,
+                        trackPopularity: item.track.popularity,
+                        artist: item.track.artists.map(artist => {
+                            return {
+                                name: artist.name,
+                                artistType: artist.type
+                            }
+                        }),
+
+                        //  Audio Features
+                        energy: audioFeatures.energy,
+                        valence: audioFeatures.valence,
+                        danceability: audioFeatures.danceability,
+                        speechiness: audioFeatures.speechiness
+
+                    }
+                })
+                )
+
+                console.log(`Playlist's tracks data resolved`)
+                resolve(filteredData)
             })
 
+
             //Convert filtered Json data to csv
-            jsonexport(filteredData, (err, csv) => {
+            jsonexport(finalizedData, (err, csv) => {
                 if (err) return console.log(err);
 
                 console.log(`CSV file of playlist ${playlistID} created:`)
@@ -66,13 +88,16 @@ class PlaylistPage extends React.Component {
     }
 
     render() {
-        const csv_href = `data:text/csv;charset=utf-8,${escape(this.state.playlistCsv)}`;
+        const csvHref = `data:text/csv;charset=utf-8,${escape(this.state.playlistCsv)}`;
 
         return (
-            <div style={styles}>
+            <div style={styles} >
                 <h1>This is your playlist's page!</h1>
-                {this.props.children}
-                <Button href={csv_href} download="playlist_data.csv">Click to Download CSV file</Button>
+                {this.props.children
+                }
+                < Button href={csvHref} download="playlist_data.csv" > Click to Download CSV file</Button >
+
+
             </div >
         );
     }

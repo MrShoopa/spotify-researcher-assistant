@@ -15,6 +15,7 @@ import Particles from 'particlesjs'
 import HomePage from './components/ui/HomePage';
 import LoginPage from './components/ui/LoginPage';
 import PlaylistPage from './components/ui/PlaylistPage';
+import TrackAnalysis from './components/ui/_depreicated/TrackAnalysis';
 
 //  Debugging on local server
 export const _localhost = true
@@ -62,6 +63,7 @@ class App extends React.Component {
         <Route path='/home' component={HomePage} />
         <Route path='/callback' exact component={Callback} />
         <Route path='/playlist/:playlistId' component={PlaylistPage} />
+        <Route path='/sample-playlist-visual' component={TrackAnalysis} />
       </Router>
     );
   }

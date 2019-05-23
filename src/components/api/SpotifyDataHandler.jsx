@@ -19,10 +19,11 @@ import track_list from '../../data/track_list.json'
 import track_data from '../../data/track_info.json'
 //import track_list_sample from '../../data/track_list_sample.json'
 import track_data_sample from '../../data/track_info_sample.json'
+import { Promise } from 'q';
 
 
 class SpotifyDataHandler {
-    constructor(token) {
+    constructor (token) {
         this.setAccessToken(token)  // Sets token across application
 
         this.user_info = this.Spotify.getMe().then((result) => {
@@ -107,23 +108,16 @@ class SpotifyDataHandler {
         //  When sample track data is requested
         if (track_ids === 'sample') return track_data_sample.audio_features
 
-        this.Spotify.getAudioFeaturesForTracks(track_ids)
-            .then(data => {
-                track_data = data
-                console.log(`Audio features for track(s): `, data)
-            }, err => {
-                console.log(`Error fetching track features - `, err)
-            })
-
-        let index = 0
-
-        //  Append Title and Artist to Features list
-        track_list.items.forEach(track => {
-            track_data[index++].audio_features.title = track.title
-            track_data[index++].audio_features.artist = track.artist
+        return new Promise((res, rej) => {
+            this.Spotify.getAudioFeaturesForTracks(track_ids)
+                .then(data => {
+                    //.console.log(`Audio features for track `, data.audio_features[0])
+                    res(data.audio_features[0])
+                }, err => {
+                    console.log(`Error fetching track features - `, err)
+                    rej(new Error(`Error fetching track features - ${err}`))
+                })
         })
-
-        return track_data.audio_features
     }
 
     /*  Formatting/Generation functions */

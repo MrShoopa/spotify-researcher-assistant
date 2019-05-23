@@ -10,14 +10,14 @@ import React from 'react'
 import { Scatter } from 'react-chartjs-2'
 
 
-function TrackScatterGraph(props) {
+export default function TrackScatterGraph(props) {
 
 
     function parseData() {
-        //console.log('Graphing following data:', props.track_list)
+        //console.log('Graphing following data:', props.trackList)
 
         // SAMPLE DATA TABLE
-        let formatted_data = {
+        let formattedData = {
             labels: ["Track 1"],
             datasets: [{
                 label: 'Energy vs. Valence',
@@ -34,21 +34,21 @@ function TrackScatterGraph(props) {
         }
 
         //  Parsing data
-        props.track_list.forEach((track, index) => {
-            formatted_data.labels[index] = `${track.title} - ${track.artist}`   //  Datapoint name
-            formatted_data.datasets[0].data[index] =
+        props.trackList.forEach((track, index) => {
+            formattedData.labels[index] = `${track.title} - ${track.artist}`   //  Datapoint name
+            formattedData.datasets[0].data[index] =
                 {
                     x: track.valence,
                     y: track.energy
                 }
 
             //  Styling according to Energy value
-            formatted_data.datasets[0].pointBackgroundColor[index] =
+            formattedData.datasets[0].pointBackgroundColor[index] =
                 determineStrengthColor(track.energy)
-            formatted_data.datasets[0].pointBorderColor[index] = 'black'
+            formattedData.datasets[0].pointBorderColor[index] = 'black'
         })
 
-        return formatted_data
+        return formattedData
     }
 
     let options = {
@@ -104,10 +104,10 @@ function TrackScatterGraph(props) {
     }
 
     //  Returns an HSL color (green-red) according to strength of a song's Energy value
-    function determineStrengthColor(nrg_val) {
+    function determineStrengthColor(energyVal) {
         const green = 120
 
-        var hue = green * (1 - nrg_val)
+        var hue = green * (1 - energyVal)
 
         // Return an CSS HSL string
         return 'hsl(' + hue + ', 100%, 50%)';
@@ -133,5 +133,3 @@ const chartStyle = {
     animationDelay: '.75s',
     animationFillMode: 'forwards'
 }
-
-export default TrackScatterGraph
