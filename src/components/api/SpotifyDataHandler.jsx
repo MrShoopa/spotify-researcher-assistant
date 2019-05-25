@@ -54,7 +54,7 @@ class SpotifyDataHandler {
             .catch((error) => {
                 console.error(error)
             }).then((result) => {
-                //console.log(result)
+                console.log(result)
                 playlists = result.items
             }).finally(() => {
                 return 'null'
@@ -114,7 +114,6 @@ class SpotifyDataHandler {
                     //.console.log(`Audio features for track `, data.audio_features[0])
                     res(data.audio_features[0])
                 }, err => {
-                    console.log(`Error fetching track features - `, err)
                     rej(new Error(`Error fetching track features - ${err}`))
                 })
         })
@@ -150,15 +149,24 @@ class SpotifyDataHandler {
 
     // Based off a playlist's average energy, valence, and best artist. //* Version 1
     fetchCustomizedRecommendation = async (energy, valence, artistID) => {
-        let recommendedPlaylist = await this.Spotify.getRecommendations({
-            limit: '25',
-            target_energy: energy,      //  Average
-            target_valence: valence,    //  Average
-            seed_artists: artistID      //  Top artist
-        })
+        //TODO: Fix Async programming
 
-        console.log(recommendedPlaylist)
-        return recommendedPlaylist.tracks
+        return new Promise((res, rej) => {
+            this.Spotify.getRecommendations({
+                limit: '25',
+                target_energy: energy,      //  Average
+                target_valence: valence,    //  Average
+                seed_artists: artistID      //  Top artist
+            }).then(data => {
+                console.log(data)
+                res(data.tracks)
+            }, err => {
+                console.error('Error fetching recommendations')
+                rej(err)
+            }
+            )
+
+        })
 
     }
 

@@ -9,6 +9,7 @@ import PlaylistRecommendation from './Recommendation/PlaylistRecommendationTable
 
 // Component
 import { Button } from 'react-bootstrap';
+let playlistComponent
 
 class PlaylistPage extends React.Component {
     constructor (props) {
@@ -18,10 +19,11 @@ class PlaylistPage extends React.Component {
             playlist: null,
             playlistCsv: null,
 
-            energyAverage: 0,
-            valenceAverage: 0,
-            topArtistID: 0,
-            bestTrackPopularity: 0
+            //  Number values
+            energyAverage: null,
+            valenceAverage: null,
+            topArtistID: null,
+            bestTrackPopularity: null
 
         }
     }
@@ -98,11 +100,21 @@ class PlaylistPage extends React.Component {
                 resolve(results)
             })
 
-            //TODO: Verify results, fetch top artist's ID
             console.log(
                 `Best artist's ID: ${this.state.topArtistID}
                 \nAverage valence: ${this.state.valenceAverage}
                 \nAverage energy: ${this.state.energyAverage}`)
+
+            if (this.state.energyAverage)
+                playlistComponent = (
+                    <PlaylistRecommendation
+                        energyAverage={this.state.energyAverage}
+                        valenceAverage={this.state.valenceAverage}
+                        topArtistID={this.state.topArtistID}
+                        style={{ display: 'unset' }}>
+                    </PlaylistRecommendation>)
+            else
+                playlistComponent = (<p>Loading recommendations...</p>)
 
             //Convert filtered Json data to csv
             jsonexport(finalizedData, (err, csv) => {
@@ -122,19 +134,6 @@ class PlaylistPage extends React.Component {
     render() {
         const csvHref = `data:text/csv;charset=utf-8,${escape(this.state.playlistCsv)}`;
 
-        let playlistComponent
-
-        if (this.state.energyAverage)
-            playlistComponent = (
-                <PlaylistRecommendation
-                    energyAverage={this.state.energyAverage}
-                    valenceAverage={this.state.valenceAverage}
-                    artistPopular={this.state.topArtistID}
-                    style={{ display: 'none' }}>
-                </PlaylistRecommendation>)
-        else
-            playlistComponent = (<p></p>)
-
         return (
             <div style={styles} >
                 <h1>This is your playlist's page!</h1>
@@ -146,7 +145,7 @@ class PlaylistPage extends React.Component {
                     Click to Download CSV file
                 </Button >
 
-                {/* //TODO: Add playlist recommendation based off Spotify API's Recommendation Query  */}
+                {/*//! //TODO: Add playlist recommendation based off Spotify API's Recommendation Query  */}
                 <Button onClick={this.setRecommendedPlaylistVisible}
                     style={{ color: 'white', backgroundColor: 'darkslategray' }}
                 >

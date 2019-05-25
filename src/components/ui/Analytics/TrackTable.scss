@@ -24,7 +24,7 @@ button[type='sort'] :active {
 }
 
 .track-table {
-    opacity: 0;
+    opacity: 100;
 
     animation: initial-screen-slide-down-empty-full ease-out .5s;
     animation-delay: 2s;
