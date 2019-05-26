@@ -41,6 +41,8 @@ class PlaylistPage extends React.Component {
         }
 
         SpotifyDataHandler.fetchPlaylist(playlistID).then(async playlist => {
+            this.setState(() => ({ sourcePlaylist: playlist }))
+
             // Filter JSON data
             const finalizedData = await new Promise(async (resolve, reject) => {
 
@@ -110,8 +112,7 @@ class PlaylistPage extends React.Component {
                     <PlaylistRecommendation
                         energyAverage={this.state.energyAverage}
                         valenceAverage={this.state.valenceAverage}
-                        topArtistID={this.state.topArtistID}
-                        style={{ display: 'unset' }}>
+                        topArtistID={this.state.topArtistID}>
                     </PlaylistRecommendation>)
             else
                 playlistComponent = (<p>Loading recommendations...</p>)
@@ -132,25 +133,32 @@ class PlaylistPage extends React.Component {
     }
 
     render() {
-        const csvHref = `data:text/csv;charset=utf-8,${escape(this.state.playlistCsv)}`;
+        const csvHref = `data:text/csv;charset=utf-8,${escape(this.state.playlistCsv)}`
+        let sourcePlaylistDataDownloadBtn, recommendedPlaylistTableDisplayBtn //TODO: F
 
-        return (
-            <div style={styles} >
-                <h1>This is your playlist's page!</h1>
-                {this.props.children
-                }
+        //TODO?: 
+        if (this.state.sourcePlaylist)
+            sourcePlaylistDataDownloadBtn = (
                 <Button href={csvHref}
                     download="playlist_data.csv"
                     variant='dark'>
-                    Click to Download CSV file
-                </Button >
+                    CSV file of {this.state.sourcePlaylist.name}'s track data
+                </Button >)
+        recommendedPlaylistTableDisplayBtn = (
+            <Button onClick={() => { document.getElementById('recommended-playlist-table').style.display = 'initial' }}
+                style={{ color: 'white', backgroundColor: 'darkslategray' }}>
+                What would you recommend me?
+            </Button >)
 
-                {/*//! //TODO: Add playlist recommendation based off Spotify API's Recommendation Query  */}
-                <Button onClick={this.setRecommendedPlaylistVisible}
-                    style={{ color: 'white', backgroundColor: 'darkslategray' }}
-                >
-                    What would you recommend me?
-                </Button >
+        return (
+            <div style={styles} >
+                <h1>Incoming playlist data!</h1>
+                {this.props.children}
+
+                <div className='playlist-action-buttons'>
+                    {recommendedPlaylistTableDisplayBtn}
+                    {sourcePlaylistDataDownloadBtn}
+                </div>
                 {playlistComponent}
             </div >
         );
