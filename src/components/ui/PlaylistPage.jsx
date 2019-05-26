@@ -136,7 +136,7 @@ class PlaylistPage extends React.Component {
         const csvHref = `data:text/csv;charset=utf-8,${escape(this.state.playlistCsv)}`
         let sourcePlaylistDataDownloadBtn, recommendedPlaylistTableDisplayBtn //TODO: F
 
-        //TODO?: 
+        //TODO: Include graphing visuals (plug in TrackScatterGraph)
         if (this.state.sourcePlaylist)
             sourcePlaylistDataDownloadBtn = (
                 <Button href={csvHref}

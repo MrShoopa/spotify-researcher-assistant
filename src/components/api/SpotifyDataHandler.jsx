@@ -149,8 +149,6 @@ class SpotifyDataHandler {
 
     // Based off a playlist's average energy, valence, and best artist. //* Version 1
     fetchCustomizedRecommendation = async (energy, valence, artistID) => {
-        //TODO: Fix Async programming
-
         return new Promise((res, rej) => {
             this.Spotify.getRecommendations({
                 limit: '25',
