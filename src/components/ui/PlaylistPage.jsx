@@ -134,7 +134,7 @@ class PlaylistPage extends React.Component {
 
     render() {
         const csvHref = `data:text/csv;charset=utf-8,${escape(this.state.playlistCsv)}`
-        let sourcePlaylistDataDownloadBtn, recommendedPlaylistTableDisplayBtn //TODO: F
+        let sourcePlaylistDataDownloadBtn, recommendedPlaylistTableDisplayBtn
 
         //TODO: Include graphing visuals (plug in TrackScatterGraph)
         if (this.state.sourcePlaylist)
@@ -155,7 +155,7 @@ class PlaylistPage extends React.Component {
                 <h1>Incoming playlist data!</h1>
                 {this.props.children}
 
-                <div className='playlist-action-buttons'>
+                <div className='playlist-action-buttons' style={{ marginBottom: '16px' }}>
                     {recommendedPlaylistTableDisplayBtn}
                     {sourcePlaylistDataDownloadBtn}
                 </div>

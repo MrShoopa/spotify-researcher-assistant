@@ -1,9 +1,34 @@
 table {
     display: contents;
+
+
+    opacity: 0;
+    animation: initial-screen-slide-down-empty-full ease-out .5s;
+    animation-delay: 2s;
+    animation-fill-mode: forwards;
+    width: 90vw;
 }
 
 th {
+    border-radius: 2px;
+    transform: translateY(1px);
     text-align: center;
+}
+
+td {
+    border: 1px solid rgb(94, 94, 94);
+}
+
+tr:nth-child(even) {
+    background-color: #272727;
+}
+
+tr {
+    background-color: #000000;
+}
+
+tr:hover {
+    background-color: rgb(90, 90, 90);
 }
 
 .title-text {
