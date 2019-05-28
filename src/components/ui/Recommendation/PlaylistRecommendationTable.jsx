@@ -69,7 +69,7 @@ export default class PlaylistRecommendationTable extends React.Component {
                                         {
                                             track.artists.map(artist => {
 
-                                                return (<a href={artist.external_urls.spotify}>
+                                                return (<a href={artist.external_urls.spotify} key={`item-${artist.id}`}>
                                                     {artist.name},
                                                 </a>)
                                             }
