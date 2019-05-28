@@ -3,14 +3,13 @@ import { Form, FormGroup, Button } from 'react-bootstrap';
 import './LoginPage.scss';
 import auth from '../../resources/auth.json';
 
-import _localhost from '../../App'
-
 
 class LoginPage extends Component {
     render() {
         const clientID = auth.spotify.client.id;
-        const redirectURI = !_localhost ?
+        const redirectURI = !this.props.local ?
             auth.spotify.client.redirectURI : auth.spotify.client.redirectURILocal
+        console.log(redirectURI)
         const scope = 'user-read-private user-read-email';
         const responseType = 'token';
         const state = '123';

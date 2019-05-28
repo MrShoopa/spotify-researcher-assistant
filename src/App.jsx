@@ -59,7 +59,7 @@ class App extends React.Component {
       <Router basename={baseURL}>
         <canvas className="background-particles"></canvas>
         <script src={Particles}></script>
-        <Route path='/' exact component={LoginPage} />
+        <Route path='/' exact render={() => <LoginPage local={_localhost} />} />
         <Route path='/home' component={HomePage} />
         <Route path='/callback' exact component={Callback} />
         <Route path='/playlist/:playlistId' component={PlaylistPage} />
