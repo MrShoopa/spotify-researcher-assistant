@@ -1,6 +1,6 @@
 {
-  "name": "Spotify Data Assistant",
-  "short_name": "Spotify Analyzer",
+  "name": "Playlist Spotter",
+  "short_name": "Playlist Spotter",
   "icons": [{
       "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
