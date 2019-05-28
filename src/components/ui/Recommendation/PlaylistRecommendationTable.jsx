@@ -17,6 +17,9 @@ export default class PlaylistRecommendationTable extends React.Component {
         this.state = {
             recommendedPlaylistTable: (<p>'asdas'</p>)
         }
+
+        //TODO: Add sorting function
+        this.sortBy = this.sortBy.bind(this)
     }
 
     componentDidMount() {
@@ -49,6 +52,18 @@ export default class PlaylistRecommendationTable extends React.Component {
     //  Display more info on a single track
     showMoreInfo = () => {
         console.log('You clicked on a song! A future feature will replace this message!')
+    }
+
+    sortBy = (type) => {
+        console.log(`Sorting by ${type}`)
+
+        this.setState({
+            track_data:
+                this.props.track_data.sort((low, high) => {
+                    if (typeof low[type] === 'string') return ('' + low[type]).localeCompare(high[type]);
+                    return low[type] - high[type]
+                })
+        })
     }
 
     // Table of tracks displaying details of the ones in the table header.
