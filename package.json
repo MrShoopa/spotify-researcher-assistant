@@ -2,7 +2,7 @@
   "name": "spotify-researcher-assistant",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://mrshoopa.github.io/",
+  "homepage": "https://mrshoopa.github.io/spotify-researcher-assistant",
   "dependencies": {
     "axios": "^0.18.0",
     "axios-retry": "^3.1.2",

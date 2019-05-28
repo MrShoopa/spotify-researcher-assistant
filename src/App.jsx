@@ -17,8 +17,8 @@ import LoginPage from './components/ui/LoginPage';
 import PlaylistPage from './components/ui/PlaylistPage';
 import TrackAnalysis from './components/ui/_depreicated/TrackAnalysis';
 
-//  Debugging on local server
-export const _localhost = true
+//*  Debugging on local server
+export const _localhost = false
 
 //* Change only if hosting elsewhere!
 var baseURL = '/spotify-researcher-assistant/'

@@ -30,12 +30,10 @@ class SpotifyDataHandler {
             console.log(`--- LOGGED IN AS ${result.display_name} ---`)
 
             return result
-        }
-        )
+        })
     }
 
     Spotify = new SpotifyWebAPI()
-
 
     setAccessToken(access_token) {
         this.Spotify.setAccessToken(access_token);
