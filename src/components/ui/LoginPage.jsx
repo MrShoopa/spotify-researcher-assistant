@@ -7,15 +7,13 @@ import auth from '../../resources/auth.json';
 class LoginPage extends Component {
     render() {
         const clientID = auth.spotify.client.id;
-        const redirectURI = !this.props.local ?
-            auth.spotify.client.redirectURI : auth.spotify.client.redirectURILocal
-        console.log(redirectURI)
         const scope = 'user-read-private user-read-email';
+        console.log(this.props.uri)
         const responseType = 'token';
         const state = '123';
 
         const url =
-            `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&scope=${scope}&response_type=${responseType}&state=${state}`
+            `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${this.props.uri}&scope=${scope}&response_type=${responseType}&state=${state}`
         return (
             <div className="login" style={{ width: '-webkit-fill-available' }}>
                 <Form horizontal>
