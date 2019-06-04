@@ -82,10 +82,14 @@ export default class PlaylistRecommendationTable extends React.Component {
                                     style={{ backgroundColor: this.determineStrengthColor(track.energy) }}>
                                     <td className='artist-text'>
                                         {
-                                            track.artists.map(artist => {
+                                            track.artists.map((artist, index) => {
+                                                if (index === track.artists.length - 1)
+                                                    return (<a href={artist.external_urls.spotify} key={`item-${artist.id}`}>
+                                                        {artist.name}
+                                                    </a>)
 
                                                 return (<a href={artist.external_urls.spotify} key={`item-${artist.id}`}>
-                                                    {artist.name},
+                                                    {artist.name},{' '}
                                                 </a>)
                                             }
                                             )
@@ -96,7 +100,12 @@ export default class PlaylistRecommendationTable extends React.Component {
                                             {track.name}
                                         </a>
                                     </td>
-                                    <td className='length-text'>{Math.floor((track.duration_ms / 1000))}</td>
+                                    <td className='length-text'>{`
+                                        ${Math.floor((track.duration_ms / 1000) / 60)}
+                                        :
+                                        ${Math.floor((track.duration_ms / 1000) % 60)
+                                            .toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}
+                                    `}</td>
                                     <td>{/*track.energy*/}</td>
                                     <td>{/*track.valence*/}</td>
                                 </tr>
@@ -128,7 +137,7 @@ export default class PlaylistRecommendationTable extends React.Component {
                                 </th>
                                 <th>
                                     <button type='sort' name='seconds' onClick={() => this.state.sortBy('duration_ms')}>
-                                        Seconds
+                                        Length
                                     </button>
                                 </th>
                             </tr>
