@@ -16,12 +16,15 @@ import HomePage from './components/ui/HomePage';
 import LoginPage from './components/ui/LoginPage';
 import PlaylistPage from './components/ui/PlaylistPage';
 import TrackAnalysis from './components/ui/_depreicated/TrackAnalysis';
+import auth from './resources/auth.json';
+//* Change only if hosting elsewhere!
+var baseURL = '/spotify-researcher-assistant/'
+var redirectURI
 
 //*  Debugging on local server
 export const _localhost = false
 
-//* Change only if hosting elsewhere!
-var baseURL = '/spotify-researcher-assistant/'
+
 
 
 //Retrieve access_token and redirect it to playlistPage
@@ -42,8 +45,13 @@ class App extends React.Component {
   constructor () {
     super()
 
-    if (_localhost === true)
+    if (_localhost === true) {
+      console.log(`Local host mode enabled. Disiable '_localhost' before deployment.`)
       baseURL = ''
+      redirectURI = auth.spotify.client.redirectURILocal
+    } else {
+      redirectURI = auth.spotify.client.redirectURI
+    }
   }
 
 
@@ -59,8 +67,8 @@ class App extends React.Component {
       <Router basename={baseURL}>
         <canvas className="background-particles"></canvas>
         <script src={Particles}></script>
-        <Route path='/' exact render={() => <LoginPage local={_localhost} />} />
-        <Route path='/home' component={HomePage} />
+        <Route path='/' exact render={() => <LoginPage uri={redirectURI} />} />
+        <Route path='/home' render={() => <HomePage scope={baseURL} />} />
         <Route path='/callback' exact component={Callback} />
         <Route path='/playlist/:playlistId' component={PlaylistPage} />
         <Route path='/sample-playlist-visual' component={TrackAnalysis} />

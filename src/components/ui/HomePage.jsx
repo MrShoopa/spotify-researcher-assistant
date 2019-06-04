@@ -41,7 +41,7 @@ class HomePage extends React.Component {
     }
 
     redirectToPlaylist = () => {
-        this.props.history.push({ pathname: '/playlist/' + this.state.playlistID })
+        this.props.history.push({ pathname: this.props.scope + '/playlist/' + this.state.playlistID })
     }
 
     handleChange(event) {
@@ -55,9 +55,10 @@ class HomePage extends React.Component {
 
     render = () => {
         var dropdownPlaylists = this.state.playlists ?
+
             this.state.playlists.map(playlist => {
                 return (<Button className='btn-block'
-                    key={playlist.id + '-key'} href={`/playlist/${playlist.id}`}
+                    key={playlist.id + '-key'} href={`${this.props.scope}playlist/${playlist.id}`}
                 >
                     {playlist.name}</Button>)
             })
