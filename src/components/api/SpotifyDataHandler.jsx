@@ -26,21 +26,35 @@ class SpotifyDataHandler {
     constructor (token) {
         this.setAccessToken(token)  // Sets token across application
 
-        this.user_info = this.Spotify.getMe().then((result) => {
-            console.log(`--- LOGGED IN AS ${result.display_name} ---`)
-
-            return result
-        })
+        this.setUserInfo()
     }
 
     Spotify = new SpotifyWebAPI()
 
-    setAccessToken(access_token) {
-        this.Spotify.setAccessToken(access_token);
 
-        sessionStorage.setItem('token', access_token);// Sets new global token
+    setAccessToken(accessToken) {
+        this.Spotify.setAccessToken(accessToken);
+
+        sessionStorage.setItem('token', accessToken);// Sets new global token
 
         console.log('New token for Spotify set from user input!')
+    }
+
+    setUserInfo() {
+        this.user_info = this.Spotify.getMe().then((result) => {
+            console.log(`--- LOGGED IN AS ${result.display_name} ---`)
+
+            return result
+        }, error => {
+            if (error.result === 401) {
+                console.error('Could not log in. Access token invalid.')
+            } else if (error.result === 429) {
+                console.error('Too many calls. Please retry in a bit.')
+            } else {
+                console.log(`--- Could not log in to user. ---`)
+            }
+            return error
+        })
     }
 
     /*   Data fetch functions   */
@@ -48,17 +62,17 @@ class SpotifyDataHandler {
     async fetchPlaylists() {
         let playlists
 
-        await this.Spotify.getUserPlaylists(this.user_info.id)
-            .catch((error) => {
-                console.error(error)
-            }).then((result) => {
-                console.log(result)
-                playlists = result.items
-            }).finally(() => {
-                return 'null'
-            })
+        return new Promise((res, rej) => {
+            this.Spotify.getUserPlaylists(this.user_info.id, { limit: 50 })
+                .catch(error => {
+                    rej(error)
+                }).then((result) => {
+                    console.log(result)
+                    playlists = result.items
 
-        return playlists
+                    res(playlists)
+                })
+        })
     }
 
     fetchPlaylist(playlistID) {
@@ -172,6 +186,12 @@ class SpotifyDataHandler {
     }
     componentWillUnmount = () => {
         this.props.onRef(undefined)
+    }
+
+    onReady = () => {
+        return new Promise((res, rej) => {
+
+        })
     }
 
     //  This is a purely functional component, hence no need to return any HTML.

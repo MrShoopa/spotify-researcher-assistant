@@ -17,7 +17,7 @@ import logo from '../../logo.svg'
 import './HomePage.scss'
 
 class HomePage extends React.Component {
-    constructor(props) {
+    constructor (props) {
         super(props)
         this.state = {
             playlistID: ''
@@ -27,7 +27,9 @@ class HomePage extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+
+        //TODO: Fix not loading on first load.
         var playlistData = async () => {
             let playlists = await SpotifyDataHandler.fetchPlaylists();
 
@@ -35,11 +37,11 @@ class HomePage extends React.Component {
                 return { playlists: playlists }
             });
         }
-        playlistData()
+        await playlistData()
     }
 
     redirectToPlaylist = () => {
-            this.props.history.push({ pathname: '/playlist/' + this.state.playlistID })
+        this.props.history.push({ pathname: '/playlist/' + this.state.playlistID })
     }
 
     handleChange(event) {
@@ -52,7 +54,7 @@ class HomePage extends React.Component {
     }
 
     render = () => {
-        var dropdown_playlists = this.state.playlists ?
+        var dropdownPlaylists = this.state.playlists ?
             this.state.playlists.map(playlist => {
                 return (<Button className='btn-block'
                     key={playlist.id + '-key'} href={`/playlist/${playlist.id}`}
@@ -89,8 +91,8 @@ class HomePage extends React.Component {
                                 Select one of your playlists
                             </Dropdown.Toggle>
 
-                            <Dropdown.Menu className='fill-style' >
-                                {dropdown_playlists}
+                            <Dropdown.Menu className='fill-style' style={DropdownMenuStyle} >
+                                {dropdownPlaylists}
                             </Dropdown.Menu>
                         </Dropdown>
                         <br />
@@ -103,3 +105,13 @@ class HomePage extends React.Component {
 }
 
 export default HomePage;
+
+
+/* Component Styles */
+
+var DropdownMenuStyle = {
+
+    overflow: 'auto',
+    height: '50vh'
+
+}
