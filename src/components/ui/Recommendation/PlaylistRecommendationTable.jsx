@@ -122,8 +122,9 @@ export default class PlaylistRecommendationTable extends React.Component {
 
         if (playlistTable)
             return (
-                <div className='track-table' id='recommended-playlist-table' style={{ display: 'none', animationDelay: '0ms' }}>
-                    <table>
+                <div id='recommended-playlist-table' style={{ display: 'none', animationDelay: '0ms' }}>
+                    <h3>Here's some recommendations for you!</h3>
+                    <table className='track-table' >
                         <thead>
                             <tr>
                                 <th>
