@@ -4,12 +4,12 @@ import * as jsonexport from 'jsonexport/dist';
 import SpotifyDataHandler from '../api/SpotifyDataHandler';
 
 //import TrackTable from './Analytics/TrackTable'
-//import TrackScatterGraph from './Analytics/TrackScatterGraph'
+import TrackScatterGraph from './Analytics/TrackScatterGraph'
 import PlaylistRecommendation from './Recommendation/PlaylistRecommendationTable'
 
 // Component
 import { Button } from 'react-bootstrap';
-let playlistComponent
+let recommendedPlaylist, currentPlaylist, currentPlaylistGraph
 
 class PlaylistPage extends React.Component {
     constructor (props) {
@@ -101,33 +101,45 @@ class PlaylistPage extends React.Component {
                 console.log(results)
                 resolve(results)
             })
+            this.setState({ playlist: finalizedData })
+
+            //  Generate scatter graph of current playlist's data
+            if (this.state.playlist) {
+                //* Edit recommendation parameters here
+                currentPlaylistGraph = (<TrackScatterGraph trackList={this.state.playlist} />)
+            } else {
+                currentPlaylist = (<p>Loading graph...</p>)
+            }
+
+
 
             console.log(
                 `Best artist's ID: ${this.state.topArtistID}
                 \nAverage valence: ${this.state.valenceAverage}
                 \nAverage energy: ${this.state.energyAverage}`)
 
-            if (this.state.energyAverage)
-                playlistComponent = (
+            // Generate playlist recommendation with given specific variables
+            if (this.state.energyAverage) {
+                //* Edit recommendation parameters here
+                recommendedPlaylist = (
                     <PlaylistRecommendation
                         energyAverage={this.state.energyAverage}
                         valenceAverage={this.state.valenceAverage}
                         topArtistID={this.state.topArtistID}>
                     </PlaylistRecommendation>)
-            else
-                playlistComponent = (<p>Loading recommendations...</p>)
+                //!await this.setState({ recommendedPlaylist: recommendedPlaylist.state })
+            } else {
+                recommendedPlaylist = (<p>Loading recommendations...</p>)
+            }
 
-            //Convert filtered Json data to csv
+            // Export source playlist's data (user-defined) to CSV.
             jsonexport(finalizedData, (err, csv) => {
                 if (err) return console.log(err);
 
                 console.log(`CSV file of playlist ${playlistID} created.`)
                 //.console.log(csv)
 
-                this.setState({
-                    playlist: playlist,
-                    playlistCsv: csv
-                })
+                this.setState({ playlistCsv: csv })
             })
         });
     }
@@ -144,10 +156,12 @@ class PlaylistPage extends React.Component {
                     variant='dark'>
                     CSV file of {this.state.sourcePlaylist.name}'s track data
                 </Button >)
-        recommendedPlaylistTableDisplayBtn = (
-            <Button onClick={() => { document.getElementById('recommended-playlist-table').style.display = 'initial' }}
-                style={{ color: 'white', backgroundColor: 'darkslategray' }}>
-                What would you recommend me?
+
+        if (recommendedPlaylist)
+            recommendedPlaylistTableDisplayBtn = (
+                <Button onClick={() => { document.getElementById('recommended-playlist-table').style.display = 'initial' }}
+                    style={{ color: 'white', backgroundColor: 'darkslategray' }}>
+                    What would you recommend me?
             </Button >)
 
         return (
@@ -159,7 +173,9 @@ class PlaylistPage extends React.Component {
                     {recommendedPlaylistTableDisplayBtn}
                     {sourcePlaylistDataDownloadBtn}
                 </div>
-                {playlistComponent}
+                {recommendedPlaylist}
+
+                {currentPlaylistGraph}
             </div >
         );
     }

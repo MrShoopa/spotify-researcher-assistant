@@ -14,7 +14,7 @@ export default function TrackScatterGraph(props) {
 
 
     function parseData() {
-        //console.log('Graphing following data:', props.trackList)
+        console.log('Graphing following data:', props.trackList)
 
         // SAMPLE DATA TABLE
         let formattedData = {
@@ -35,7 +35,16 @@ export default function TrackScatterGraph(props) {
 
         //  Parsing data
         props.trackList.forEach((track, index) => {
-            formattedData.labels[index] = `${track.title} - ${track.artist}`   //  Datapoint name
+            let artistString = track.artists.map(artist => {
+                return {
+                    name: artist.name,
+                    artistType: artist.type
+                }
+                
+            })
+
+
+            formattedData.labels[index] = `${track.trackName} - ${track.artistName}`   //  Datapoint name
             formattedData.datasets[0].data[index] =
                 {
                     x: track.valence,
