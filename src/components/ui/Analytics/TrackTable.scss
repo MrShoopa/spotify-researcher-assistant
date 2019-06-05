@@ -1,6 +1,8 @@
 td {
     padding: 6px;
     border-radius: 1px;
+
+    line-break: auto;
 }
 
 button[type='sort'] {
@@ -24,7 +26,17 @@ button[type='sort'] :active {
 }
 
 .track-table {
+    overflow-x: hidden;
+    display: block;
+
     opacity: 100;
+    margin: 0 auto;
+    margin-block-end: 10px;
+
+    width: 90vw;
+    max-width: fit-content;
+    height: 500px;
+
 
     animation: initial-screen-slide-down-empty-full ease-out .5s;
     animation-delay: 2s;
