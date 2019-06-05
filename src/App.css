@@ -38,6 +38,8 @@ input[type=submit]:hover {
 .App {
   text-align: center;
   color: white;
+  overflow: auto;
+  height: -webkit-fill-available;
 }
 
 .App-logo {
