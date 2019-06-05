@@ -109,8 +109,6 @@ export default class PlaylistRecommendationTable extends React.Component {
                                         ${Math.floor((track.duration_ms / 1000) % 60)
                                             .toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}
                                     `}</td>
-                                    <td>{/*track.energy*/}</td>
-                                    <td>{/*track.valence*/}</td>
                                 </tr>
                             )
                         )

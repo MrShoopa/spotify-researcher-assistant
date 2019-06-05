@@ -3,7 +3,7 @@ import * as jsonexport from 'jsonexport/dist';
 
 import SpotifyDataHandler from '../api/SpotifyDataHandler';
 
-//import TrackTable from './Analytics/TrackTable'
+import TrackTable from './Analytics/TrackTable'
 import TrackScatterGraph from './Analytics/TrackScatterGraph'
 import PlaylistRecommendation from './Recommendation/PlaylistRecommendationTable'
 
@@ -26,6 +26,16 @@ class PlaylistPage extends React.Component {
             bestTrackPopularity: null
 
         }
+    }
+
+    sortBy = (type) => {
+        console.log(type)
+        this.setState({
+            track_data:
+                this.props.track_data.sort((low, high) => {
+                    return low[type] - high[type]
+                })
+        })
     }
 
 
@@ -85,7 +95,10 @@ class PlaylistPage extends React.Component {
                             }
                         }),
 
-                        //  Audio Features
+                        //  Audio metrics (basic)
+                        duration_ms: item.track.duration_ms,
+
+                        //  Audio metrics (advanced)
 
                         energy: audioFeatures.energy,
                         valence: audioFeatures.valence,
@@ -106,6 +119,7 @@ class PlaylistPage extends React.Component {
             //  Generate scatter graph of current playlist's data
             if (this.state.playlist) {
                 //* Edit recommendation parameters here
+                currentPlaylist = (<TrackTable trackList={this.state.playlist} sortBy={this.sortBy} />)
                 currentPlaylistGraph = (<TrackScatterGraph trackList={this.state.playlist} />)
             } else {
                 currentPlaylist = (<p>Loading graph...</p>)
@@ -159,7 +173,7 @@ class PlaylistPage extends React.Component {
 
         if (recommendedPlaylist)
             recommendedPlaylistTableDisplayBtn = (
-                <Button onClick={() => { document.getElementById('recommended-playlist-table').style.display = 'initial' }}
+                <Button onClick={() => { document.getElementById('recommended-playlist-table').style.display = 'block' }}
                     style={{ color: 'white', backgroundColor: 'darkslategray' }}>
                     What would you recommend me?
             </Button >)
@@ -174,6 +188,7 @@ class PlaylistPage extends React.Component {
                     {sourcePlaylistDataDownloadBtn}
                 </div>
                 {recommendedPlaylist}
+                {currentPlaylist}
 
                 <div style={{
                     backgroundColor: 'rgb(40,40,40)',
