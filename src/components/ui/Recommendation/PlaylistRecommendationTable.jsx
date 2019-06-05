@@ -33,7 +33,6 @@ export default class PlaylistRecommendationTable extends React.Component {
                         recommendedPlaylist: tracks
                     }))
 
-                    console.log(this.state)
                     //.console.log(resolve)
                 })
             })

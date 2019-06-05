@@ -168,7 +168,7 @@ class SpotifyDataHandler {
                 target_valence: valence,    //  Average
                 seed_artists: artistID      //  Top artist
             }).then(data => {
-                console.log(data)
+                //.console.log(data)
                 res(data.tracks)
             }, err => {
                 console.error('Error fetching recommendations')

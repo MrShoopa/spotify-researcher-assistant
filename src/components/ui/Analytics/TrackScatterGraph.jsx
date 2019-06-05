@@ -35,16 +35,22 @@ export default function TrackScatterGraph(props) {
 
         //  Parsing data
         props.trackList.forEach((track, index) => {
-            let artistString = track.artists.map(artist => {
-                return {
-                    name: artist.name,
-                    artistType: artist.type
-                }
-                
-            })
+            let artistString = () => {
+                let tempString = ""
 
+                track.artist.forEach((artist, index) => {
+                    if (index === (track.artist.length - 1))
+                        tempString += artist.name
+                    else
+                        tempString += `${artist.name}, `
+                })
 
-            formattedData.labels[index] = `${track.trackName} - ${track.artistName}`   //  Datapoint name
+                return tempString
+            }
+
+            //  Datapoint name
+            formattedData.labels[index] = `${track.trackName} - ${artistString()}`
+            //  Datapoint values
             formattedData.datasets[0].data[index] =
                 {
                     x: track.valence,
@@ -132,8 +138,7 @@ export default function TrackScatterGraph(props) {
 }
 
 const chartStyle = {
-    margin: '10px',
-    backgroundColor: 'slategrey',
+    margin: '10px 10px',
     color: 'white',
     borderRadius: '5px',
     opacity: '0',
