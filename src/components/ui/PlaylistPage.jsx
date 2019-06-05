@@ -175,7 +175,13 @@ class PlaylistPage extends React.Component {
                 </div>
                 {recommendedPlaylist}
 
-                {currentPlaylistGraph}
+                <div style={{
+                    backgroundColor: 'rgb(40,40,40)',
+                    borderRadius: '10px',
+                    width: '90vw', margin: '0 auto',
+                }}>
+                    {currentPlaylistGraph}
+                </div>
             </div >
         );
     }
