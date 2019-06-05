@@ -33,10 +33,14 @@ export default class PlaylistRecommendationTable extends React.Component {
                         recommendedPlaylist: tracks
                     }))
 
-
+                    console.log(this.state)
                     //.console.log(resolve)
                 })
             })
+    }
+
+    getCurrentRecommendation = () => {
+        return this.state.recommendedPlaylist
     }
 
     //  Returns an HSL color (green-red) according to strength of a song's Energy value

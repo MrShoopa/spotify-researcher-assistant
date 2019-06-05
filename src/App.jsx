@@ -15,7 +15,7 @@ import Particles from 'particlesjs'
 import HomePage from './components/ui/HomePage';
 import LoginPage from './components/ui/LoginPage';
 import PlaylistPage from './components/ui/PlaylistPage';
-import TrackAnalysis from './components/ui/_depreicated/TrackAnalysis';
+import TrackAnalysis from './components/ui/_deprecated/TrackAnalysis';
 import auth from './resources/auth.json';
 //* Change only if hosting elsewhere!
 var baseURL = '/spotify-researcher-assistant/'
