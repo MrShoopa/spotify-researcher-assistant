@@ -1,3 +1,9 @@
+/*  Style entire app for particles and scrollview */
+.viewstyle {
+  overflow: auto;
+  height: -webkit-fill-available;
+}
+
 body {
   margin: 0;
   padding: 0;

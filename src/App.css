@@ -1,5 +1,11 @@
 /*  App-Wide styles for components. Can be overridden by child CSS classes. */
 
+/*  Style entire app for particles and scrollview */
+.viewstyle {
+  overflow: auto;
+  height: -webkit-fill-available;
+}
+
 /*  Type-Specific Styling */
 input {
   border: 0;

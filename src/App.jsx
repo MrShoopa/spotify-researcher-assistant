@@ -64,15 +64,15 @@ class App extends React.Component {
     };
 
     return (
-      <Router basename={baseURL}>
-        <canvas className="background-particles"></canvas>
-        <script src={Particles}></script>
-        <Route path='/' exact render={() => <LoginPage uri={redirectURI} />} />
-        <Route path='/home' render={() => <HomePage scope={baseURL} />} />
-        <Route path='/callback' exact component={Callback} />
-        <Route path='/playlist/:playlistId' component={PlaylistPage} />
-        <Route path='/sample-playlist-visual' component={TrackAnalysis} />
-      </Router>
+        <Router basename={baseURL}>
+          <canvas className="background-particles"></canvas>
+          <script src={Particles}></script>
+          <Route path='/' exact render={() => <LoginPage uri={redirectURI} />} />
+          <Route path='/home' render={() => <HomePage scope={baseURL} />} />
+          <Route path='/callback' exact component={Callback} />
+          <Route path='/playlist/:playlistId' component={PlaylistPage} />
+          <Route path='/sample-playlist-visual' component={TrackAnalysis} />
+        </Router>
     );
   }
 }
