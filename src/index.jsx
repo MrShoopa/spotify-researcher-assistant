@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
+
 import './index.css';
 import App from './App';
-
-//  Retrieve access token beforehand
 
 //  Server-side authentication
 //import './Auth.jsx';
@@ -14,15 +13,15 @@ import App from './App';
 Dependencies needed: 
     npm install:
     -axios
-    -axios-retry
     -particlesjs
     -chart.js
     -react-chartjs-2
 */
 
 
-// ReactDOM.render(<App />, document.getElementById('root'));
+// Renders the basis of the application.
 ReactDOM.render(<App />, document.getElementById('root'));
 
-// PWA
+// For enabling local data caching and offline/mobile app use.
+// Progressive Web Application
 serviceWorker.register();
