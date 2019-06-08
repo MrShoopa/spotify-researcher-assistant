@@ -15,13 +15,14 @@ export default class PlaylistRecommendationTable extends React.Component {
         super(props)
 
         this.state = {
-            recommendedPlaylistTable: (<p>'asdas'</p>)
+            recommendedPlaylistTable: (<p>'where's the table</p>)
         }
 
         //TODO: Add sorting function
         this.sortBy = this.sortBy.bind(this)
     }
 
+    // Start fetching a recommended playlist before generating table
     componentDidMount() {
 
         //* See function to customize parameters
@@ -69,7 +70,7 @@ export default class PlaylistRecommendationTable extends React.Component {
         })
     }
 
-    // Table of tracks displaying details of the ones in the table header.
+    // Table of tracks displaying details according to the ones in the table header.
     render = () => {
         //.console.log(this.state.recommendedPlaylist)
 

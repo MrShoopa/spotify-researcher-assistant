@@ -19,7 +19,6 @@ import track_list from '../../data/track_list.json'
 //import track_data from '../../data/track_info.json'
 //import track_list_sample from '../../data/track_list_sample.json'
 import track_data_sample from '../../data/track_info_sample.json'
-import { Promise } from 'q';
 
 
 class SpotifyDataHandler {
@@ -49,7 +48,7 @@ class SpotifyDataHandler {
             if (error.result === 401) {
                 console.error('Could not log in. Access token invalid.')
             } else if (error.result === 429) {
-                console.error('Too many calls. Please retry in a bit.')
+                console.error('Too many API calls. Please retry in a bit.')
             } else {
                 console.log(`--- Could not log in to user. ---`)
             }
@@ -84,16 +83,21 @@ class SpotifyDataHandler {
     }
 
     async fetchPlaylistID(name) {
+        let playlists
+
         if (!this.playlists)
-            await this.fetchPlaylists()
+            playlists = await this.fetchPlaylists()
         console.log(this.playlists)
 
         if (!name) {
-            console.err('Playlist ID fetching failed: No playlist info specified.')
-            return 'not cool'
+            console.err('Playlist ID fetching failed: No playlist name specified.')
+            return undefined
         } else {
-            //this.Spotify
-            return 'cool'
+            let matchedPlaylist = playlists.find(playlist => {
+                return playlists.name = name
+            })
+
+            if (matchedPlaylist) return matchedPlaylist
         }
     }
 

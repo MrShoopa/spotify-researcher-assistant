@@ -1,14 +1,24 @@
+/* 
+    Handles authentication and data retreival with Spotify API
+    For use with online React web applications.
+    
+    @reference  (https://developer.spotify.com/documentation/web-api/)
+    @author     Joe Villegas (joev@uw.edu)
+    @date       3/14/19
+*/
+
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import * as jsonexport from 'jsonexport/dist';
 
+//  Components
 import SpotifyDataHandler from '../../api/SpotifyDataHandler';
 
 import TrackTable from './Analytics/TrackTable'
 import TrackScatterGraph from './Analytics/TrackScatterGraph'
 import PlaylistRecommendation from './Recommendation/PlaylistRecommendationTable'
 
-// Component
-import { Button } from 'react-bootstrap';
+// Internal Components
 let recommendedPlaylist, currentPlaylist, currentPlaylistGraph
 
 class PlaylistPage extends React.Component {
@@ -40,8 +50,12 @@ class PlaylistPage extends React.Component {
 
 
     componentDidMount() {
+        //  Retrieve playlist ID from user input
         let playlistID = this.props.match.params.playlistId;
+
+        //  Special cases (Ex. user types a name of a playlist)
         switch (playlistID) {
+
             case 'Discover Weekly':
                 playlistID = 'discover_weekly_placeholder'
                 // TODO: Regex search Discover Weekly using DataHandler
@@ -56,7 +70,7 @@ class PlaylistPage extends React.Component {
             // Filter JSON data
             const finalizedData = await new Promise(async (resolve, reject) => {
 
-                //  Total audio values
+                //  Total audio values across songs of playlist
                 let energyTotal = 0, valenceTotal = 0
 
                 let filteredData = playlist.tracks.items.map(async (item, index) => {
@@ -66,7 +80,6 @@ class PlaylistPage extends React.Component {
                     energyTotal += audioFeatures.energy
                     valenceTotal += audioFeatures.valence
 
-
                     //  Calculating averages
                     if (index === playlist.tracks.items.length - 1)
                         this.setState(() => ({
@@ -75,7 +88,7 @@ class PlaylistPage extends React.Component {
                         }))
 
 
-                    return {
+                    return {    //  Returning object for a playlist
 
                         //  Core track data
                         trackID: item.track.id,
@@ -116,17 +129,18 @@ class PlaylistPage extends React.Component {
             })
             this.setState({ playlist: finalizedData })
 
-            //  Generate scatter graph of current playlist's data
             if (this.state.playlist) {
                 //* Edit recommendation parameters here
+
+                //  Generate listed table of current playlist's data
                 currentPlaylist = (<TrackTable trackList={this.state.playlist} sortBy={this.sortBy} />)
+                //  Generate scatter graph of current playlist's data
                 currentPlaylistGraph = (<TrackScatterGraph trackList={this.state.playlist} />)
             } else {
                 currentPlaylist = (<p>Loading graph...</p>)
             }
 
-
-
+            //  Logging quick results of playlist
             console.log(
                 `Best artist's ID: ${this.state.topArtistID}
                 \nAverage valence: ${this.state.valenceAverage}
@@ -160,9 +174,10 @@ class PlaylistPage extends React.Component {
 
     render() {
         const csvHref = `data:text/csv;charset=utf-8,${escape(this.state.playlistCsv)}`
+        //  Buttons based on conditions
         let sourcePlaylistDataDownloadBtn, recommendedPlaylistTableDisplayBtn
 
-        //TODO: Include graphing visuals (plug in TrackScatterGraph)
+        //  When the playlist's data has been retrieved, enabled CSV download.
         if (this.state.sourcePlaylist)
             sourcePlaylistDataDownloadBtn = (
                 <Button href={csvHref}
@@ -171,6 +186,7 @@ class PlaylistPage extends React.Component {
                     CSV file of {this.state.sourcePlaylist.name}'s track data
                 </Button >)
 
+        //  When a playlist is sucessfully fetched, enable ability to display.
         if (recommendedPlaylist)
             recommendedPlaylistTableDisplayBtn = (
                 <Button onClick={() => { document.getElementById('recommended-playlist-table').style.display = 'block' }}

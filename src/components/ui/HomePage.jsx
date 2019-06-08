@@ -1,7 +1,7 @@
 /* 
     The initial screen of the app;
-    Here the user can input a playlist/user ID combo and submit to
-    retrieve information about that playlist's tracks.
+    Here the user can input a playlist ID from Spotify,
+    then submit to retrieve information about that playlist's tracks.
     
     @reference  (https://developer.spotify.com/documentation/web-api/)
     @author     Joe Villegas (joev@uw.edu)
@@ -16,7 +16,7 @@ import SpotifyDataHandler from '../api/SpotifyDataHandler'
 import logo from '../../logo.svg'
 import './HomePage.scss'
 
-class HomePage extends React.Component {
+export default class HomePage extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
@@ -28,6 +28,7 @@ class HomePage extends React.Component {
     }
 
     async componentDidMount() {
+        // Start loading available playlists of user on page load.
 
         //TODO: Fix not loading on first load.
         var playlistData = async () => {
@@ -45,25 +46,28 @@ class HomePage extends React.Component {
     }
 
     handleChange(event) {
+        // Fetches playlist ID on playlist select
         this.setState({ playlistID: event.target.value });
     }
-
+    
     handleSubmit(event) {
+        // Fetches playlist ID on playlist ID input
         event.preventDefault();
         this.redirectToPlaylist();
     }
 
     render = () => {
+        // Renders dropdown of user's playlist when loaded
         var dropdownPlaylists = this.state.playlists ?
-
             this.state.playlists.map(playlist => {
                 return (<Button className='btn-block'
                     key={playlist.id + '-key'} href={`${this.props.scope}playlist/${playlist.id}`}
                 >
                     {playlist.name}</Button>)
             })
-            : 'Loading playlists'
+            : 'Loading playlists'   //  Loading...
 
+        //  Renders home page.
         return (
             <div className="App">
                 <header className="App-header">
@@ -104,9 +108,6 @@ class HomePage extends React.Component {
         );
     }
 }
-
-export default HomePage;
-
 
 /* Component Styles */
 
