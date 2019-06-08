@@ -1,11 +1,11 @@
 import React from 'react';
 import * as jsonexport from 'jsonexport/dist';
 
-import SpotifyDataHandler from '../api/SpotifyDataHandler';
+import SpotifyDataHandler from '../../api/SpotifyDataHandler';
 
-import TrackTable from './Playlist/Analytics/TrackTable'
-import TrackScatterGraph from './Playlist/Analytics/TrackScatterGraph'
-import PlaylistRecommendation from './Playlist/Recommendation/PlaylistRecommendationTable'
+import TrackTable from './Analytics/TrackTable'
+import TrackScatterGraph from './Analytics/TrackScatterGraph'
+import PlaylistRecommendation from './Recommendation/PlaylistRecommendationTable'
 
 // Component
 import { Button } from 'react-bootstrap';

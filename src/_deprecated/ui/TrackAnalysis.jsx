@@ -11,8 +11,8 @@ import React from 'react'
 import Particles from 'particlesjs'
 
 import './TrackAnalysis.scss'
-import TrackTable from '../Analytics/TrackTable';
-import TrackScatterGraph from '../Analytics/TrackScatterGraph';
+import TrackTable from '../../components/ui/Playlist/Analytics/TrackTable';
+import TrackScatterGraph from '../../components/ui/Playlist/Analytics/TrackScatterGraph';
 
 export default class TrackAnalysis extends React.Component {
     constructor (props) {

@@ -6,7 +6,7 @@ var CORS = require('cors');
 var Express = require('express');
 
 //  Accessing current credentials JSON
-var auth = require('./resources/auth.json');
+var auth = require('./resources/auth.json.js');
 auth = auth.spotify
 
 
