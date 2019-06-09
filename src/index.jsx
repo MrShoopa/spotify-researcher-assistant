@@ -37,9 +37,14 @@ Dependencies needed:
     -react-chartjs-2
 */
 
+//* Debugging on local server
+const _localhost = true
+//* Change only if hosting elsewhere!
+var baseURL = '/spotify-researcher-assistant/'
 
 // Renders the basis of the application.
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App localhost={_localhost} baseURL={baseURL} />,
+    document.getElementById('root'));
 
 // For enabling local data caching and offline/mobile app use.
 // Progressive Web Application

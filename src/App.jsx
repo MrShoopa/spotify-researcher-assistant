@@ -18,15 +18,8 @@ import PlaylistPage from './components/ui/Playlist/PlaylistPage';
 import TrackAnalysis from './_deprecated/ui/TrackAnalysis';
 
 import auth from './resources/auth.json';
-//* Change only if hosting elsewhere!
-var baseURL = '/spotify-researcher-assistant/'
-var redirectURI
 
-//*  Debugging on local server
-export const _localhost = true
-
-
-
+var redirectURI, baseURL
 
 //Retrieve access_token and redirect it to playlistPage
 function Callback() {
@@ -43,14 +36,15 @@ function Callback() {
 }
 
 class App extends React.Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
 
-    if (_localhost === true) {
+    if (this.props._localhost === true) {
       console.log(`Local host mode enabled. Disiable '_localhost' before deployment.`)
       baseURL = ''
       redirectURI = auth.spotify.client.redirectURILocal
     } else {
+      baseURL = this.props.baseURL
       redirectURI = auth.spotify.client.redirectURI
     }
   }
