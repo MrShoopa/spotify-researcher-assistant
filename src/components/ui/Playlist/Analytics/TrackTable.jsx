@@ -29,7 +29,7 @@ function TrackTable(props) {
     // Table of tracks displaying details of the ones in the table header.
     return (
         <div>
-            <h3>Here's some stats from your chosen playlist!</h3>
+            <h4>Here's some stats from your chosen playlist!</h4>
             <table id='track-table' className='track-table'>
                 <thead>
                     <tr>

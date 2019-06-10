@@ -25,6 +25,10 @@ input[type=submit]:hover {
   transition: .25s;
 }
 
+.btn-default {
+  margin: 4px;
+}
+
 .background-particles {
   position: absolute;
   display: block;
@@ -47,13 +51,18 @@ input[type=submit]:hover {
 .App-logo {
   height: 40vmin;
   max-width: 200px;
+  margin: top 8px bottom 8px;
 }
 
 .App-header {
   display: flex;
-  min-height: 10vh;
+  min-height: 80px;
 
-  height: 7.5vh;
+  height: 12.5vh;
+
+  z-index: 10;
+  width: -webkit-fill-available;
+  position: unset;
 
   flex-direction: column;
   align-items: center;

@@ -17,6 +17,8 @@ import LoginPage from './components/ui/LoginPage';
 import PlaylistPage from './components/ui/Playlist/PlaylistPage';
 import TrackAnalysis from './_deprecated/ui/TrackAnalysis';
 
+import './App.css'
+
 import auth from './resources/auth.json';
 
 var redirectURI, baseURL
@@ -39,8 +41,8 @@ class App extends React.Component {
   constructor (props) {
     super(props)
 
-    if (this.props._localhost === true) {
-      console.log(`Local host mode enabled. Disiable '_localhost' before deployment.`)
+    if (this.props.localhost === true) {
+      console.log(`Local host mode enabled. Disable '_localhost' (in index.jsx) before deployment.`)
       baseURL = ''
       redirectURI = auth.spotify.client.redirectURILocal
     } else {

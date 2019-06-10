@@ -194,12 +194,15 @@ class PlaylistPage extends React.Component {
                     What would you recommend me?
             </Button >)
 
+        //TODO: optimize views
         return (
             <div style={styles} >
-                <h1>Incoming playlist data!</h1>
+                <div className="App-header">
+                    <h1>Incoming playlist data!</h1>
+                </div>
                 {this.props.children}
 
-                <div className='playlist-action-buttons' style={{ marginBottom: '16px' }}>
+                <div className='playlist-action-buttons'>
                     {recommendedPlaylistTableDisplayBtn}
                     {sourcePlaylistDataDownloadBtn}
                 </div>

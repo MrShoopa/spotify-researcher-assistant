@@ -26,12 +26,14 @@ button[type='sort'] :active {
 }
 
 .track-table {
-    overflow-x: hidden;
+    border-color: darkgray;
+    border-style: solid;
+
     display: block;
 
     opacity: 100;
     margin: 0 auto;
-    margin-block-end: 10px;
+    margin-block-end: 4px;
 
     width: 90vw;
     max-width: fit-content;

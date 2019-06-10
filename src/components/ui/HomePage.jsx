@@ -13,8 +13,9 @@ import { Dropdown, Button } from 'react-bootstrap'
 import SpotifyDataHandler from '../api/SpotifyDataHandler'
 
 //  Internal Components
-import logo from '../../logo.svg'
 import './HomePage.scss'
+
+import logo from '../../logo.svg'
 
 export default class HomePage extends React.Component {
     constructor (props) {
@@ -49,7 +50,7 @@ export default class HomePage extends React.Component {
         // Fetches playlist ID on playlist select
         this.setState({ playlistID: event.target.value });
     }
-    
+
     handleSubmit(event) {
         // Fetches playlist ID on playlist ID input
         event.preventDefault();

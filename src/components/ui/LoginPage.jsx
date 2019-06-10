@@ -10,7 +10,9 @@
 
 import React, { Component } from 'react';
 import { Form, FormGroup, Button } from 'react-bootstrap';
+
 import './LoginPage.scss';
+
 import auth from '../../resources/auth.json';
 
 
