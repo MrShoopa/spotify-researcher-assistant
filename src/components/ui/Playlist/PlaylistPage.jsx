@@ -116,7 +116,8 @@ class PlaylistPage extends React.Component {
                         energy: audioFeatures.energy,
                         valence: audioFeatures.valence,
                         danceability: audioFeatures.danceability,
-                        speechiness: audioFeatures.speechiness
+                        speechiness: audioFeatures.speechiness,
+                        tempo: audioFeatures.tempo
 
                     }
                 })
@@ -135,9 +136,9 @@ class PlaylistPage extends React.Component {
                 //  Generate listed table of current playlist's data
                 currentPlaylist = (<TrackTable trackList={this.state.playlist} sortBy={this.sortBy} />)
                 //  Generate scatter graph of current playlist's data
-                currentPlaylistGraph = (<TrackScatterGraph trackList={this.state.playlist} />)
+                currentPlaylistGraph = (<div><h5>Graph</h5> <TrackScatterGraph trackList={this.state.playlist} /></div>)
             } else {
-                currentPlaylist = (<p>Loading graph...</p>)
+                currentPlaylist = (<p>Loading your playlist's data...</p>)
             }
 
             //  Logging quick results of playlist

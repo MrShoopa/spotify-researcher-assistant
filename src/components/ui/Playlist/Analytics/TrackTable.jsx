@@ -54,6 +54,16 @@ function TrackTable(props) {
                             </button>
                         </th>
                         <th>
+                            <button type='sort' name='energy' onClick={() => props.sortBy('danceability')}>
+                                Danceability
+                            </button>
+                        </th>
+                        <th>
+                            <button type='sort' name='valence' onClick={() => props.sortBy('tempo')}>
+                                Tempo
+                            </button>
+                        </th>
+                        <th>
                             <button type='sort' name='seconds' onClick={() => props.sortBy('duration_ms')}>
                                 Seconds
                             </button>
@@ -84,10 +94,10 @@ function TrackTable(props) {
                                     <td>{track.trackName}</td>
                                     <td>{track.energy}</td>
                                     <td>{track.valence}</td>
+                                    <td>{track.danceability}</td>
+                                    <td>{Math.floor(track.tempo)} BPM</td>
                                     <td>{`
-                                        ${Math.floor((track.duration_ms / 1000) / 60)}
-                                        :
-                                        ${Math.floor((track.duration_ms / 1000) % 60)
+                                        ${Math.floor((track.duration_ms / 1000) / 60)}:${Math.floor((track.duration_ms / 1000) % 60)
                                             .toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}
                                     `}</td>
                                 </tr>
