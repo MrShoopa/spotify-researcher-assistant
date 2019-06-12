@@ -25,7 +25,7 @@ input[type=submit]:hover {
   transition: .25s;
 }
 
-.btn-default {
+[class="btn btn-default"] {
   margin: 4px;
 }
 
@@ -38,6 +38,8 @@ input[type=submit]:hover {
 
   color: grey;
   background-color: slategray;
+
+  height: auto;
 }
 
 /*  Component-Specific Styling */

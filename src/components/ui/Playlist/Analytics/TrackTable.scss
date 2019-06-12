@@ -1,6 +1,45 @@
+table {
+    overflow: auto;
+
+    opacity: 0;
+    animation: initial-screen-slide-down-empty-full ease-out .5s;
+    animation-fill-mode: forwards;
+
+    margin: 0 auto;
+
+    width: 90vw;
+    max-width: 420px;
+    height: 500px;
+}
+
+.track-table {
+    border-color: darkgray;
+    border-style: solid;
+
+    display: block;
+
+    opacity: 100;
+    margin: 0 auto;
+    margin-block-end: 4px;
+
+    width: 90vw;
+    max-width: fit-content;
+    height: 500px;
+
+
+    animation: initial-screen-slide-down-empty-full ease-out .5s;
+    animation-fill-mode: forwards;
+}
+
+tbody {
+    height: 75vh;
+}
+
 td {
     padding: 6px;
     border-radius: 1px;
+    border: 1px solid rgb(94, 94, 94);
+
 
     line-break: auto;
 }
@@ -25,21 +64,24 @@ button[type='sort'] :active {
     background-color: green;
 }
 
-.track-table {
-    border-color: darkgray;
-    border-style: solid;
 
-    display: block;
+tr:hover {
+    background-color: rgb(90, 90, 90);
+}
 
-    opacity: 100;
-    margin: 0 auto;
-    margin-block-end: 4px;
+.title-text {
+    text-align: left;
+    text-decoration: none;
+}
 
-    width: 90vw;
-    max-width: fit-content;
-    height: 500px;
+.track-table-item a {
+    color: white;
+}
 
+.track-table-item button {
+    color: white;
+}
 
-    animation: initial-screen-slide-down-empty-full ease-out .5s;
-    animation-fill-mode: forwards;
+.track-table thead tr {
+    text-align: center;
 }

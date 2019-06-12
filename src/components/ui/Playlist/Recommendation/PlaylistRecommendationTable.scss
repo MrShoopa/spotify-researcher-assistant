@@ -1,3 +1,11 @@
+h4 {
+    animation: initial-screen-slide-down-empty-full ease-out .25s;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
+
+    opacity: 0;
+}
+
 table {
     overflow: auto;
 
@@ -17,11 +25,6 @@ th {
     transform: translateY(1px);
     text-align: center;
     color: 'green';
-}
-
-td {
-    border: 1px solid rgb(94, 94, 94);
-    padding: 10px;
 }
 
 tr:nth-child(even) {
