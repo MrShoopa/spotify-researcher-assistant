@@ -56,13 +56,13 @@ class App extends React.Component {
     // Load background (ParticlesJS)
     window.onload = function () {
       Particles.init({
-        selector: '.background-particles'
+        selector: '.background-particles',
       });
     };
 
     return (
       <Router basename={baseURL}>
-        <canvas className="background-particles"></canvas>
+        <canvas className="background-particles" style={{ height: 'auto' }}></canvas>
         <script src={Particles}></script>
         <Route path='/' exact render={() => <LoginPage uri={redirectURI} />} />
         <Route path='/home' render={() => <HomePage scope={baseURL} />} />
