@@ -10,6 +10,8 @@
     "express": "^4.17.1",
     "gh-pages": "^2.2.0",
     "jsonexport": "^2.5.2",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.9.16",
     "node-sass": "^4.14.1",
     "particlesjs": "^2.2.3",
     "react": "^16.13.1",
