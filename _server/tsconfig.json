@@ -1,9 +1,11 @@
 {
     "compilerOptions": {
       "baseUrl": ".",
+      "outDir": "./_built",
       "paths": { "*": ["types/*"] },
         "target": "es2015",
         "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "moduleResolution": "node"
     },
 }
